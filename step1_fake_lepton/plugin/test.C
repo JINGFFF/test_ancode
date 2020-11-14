@@ -18,7 +18,7 @@ void test::sethist(){
       n_eta_bin  = 5;
       Double_t pt_bin[3]  = {30, 40, 50};
       Double_t eta_bin[6] = {0, 0.5, 1.0, 1.5, 2.0, 2.5};
-      h_fake_lepton = new TH2D("h",m_channel + " channel " + m_tightOrloose + " " + m_sample, n_eta_bin, eta_bin, n_pt_bin, pt_bin);
+      h_fake_lepton = new TH2D("h","h", n_eta_bin, eta_bin, n_pt_bin, pt_bin);
       h_fake_lepton->SetXTitle("#eta");
       h_fake_lepton->SetYTitle("p^{T}");
    }
@@ -27,7 +27,7 @@ void test::sethist(){
       n_eta_bin  = 5;
       Double_t pt_bin[4]  = {25, 30, 40, 50};
       Double_t eta_bin[6] = {0, 0.5, 1.0, 1.5, 2.0, 2.5};
-      h_fake_lepton = new TH2D("h",m_channel + " channel " + m_tightOrloose + " " + m_sample, n_eta_bin, eta_bin, n_pt_bin, pt_bin);
+      h_fake_lepton = new TH2D("h","h", n_eta_bin, eta_bin, n_pt_bin, pt_bin);
       h_fake_lepton->SetXTitle("#eta");
       h_fake_lepton->SetYTitle("p^{T}");
    }
@@ -82,8 +82,8 @@ void test::Loop(TDirectory * dir, TTree * tree)
 
    TTreeReader fReader ;
    fReader.SetTree("tree2", dir);
-   TTreeReaderValue<Int_t>    ngoodmus  = {fReader, "ngoodmus"};
-   TTreeReaderValue<Int_t>    ngoodeles  = {fReader, "ngoodeles"};
+   //TTreeReaderValue<Int_t>    ngoodmus  = {fReader, "ngoodmus"};
+   //TTreeReaderValue<Int_t>    ngoodeles  = {fReader, "ngoodeles"};
    TTreeReaderValue<Int_t>    jet1hf_orig  = {fReader, "jet1hf_orig"};
    TTreeReaderValue<Int_t>    jet1pf_orig  = {fReader, "jet1pf_orig"};
    TTreeReaderValue<Int_t>    jet2hf_orig  = {fReader, "jet2hf_orig"};
@@ -115,16 +115,20 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Int_t>    nevent  = {fReader, "nevent"};
    TTreeReaderValue<Int_t>    run  = {fReader, "run"};
    TTreeReaderValue<Int_t>    ls  = {fReader, "ls"};
-   TTreeReaderValue<Int_t>    nVtx  = {fReader, "nVtx"};
+   //TTreeReaderValue<Int_t>    nVtx  = {fReader, "nVtx"};
    TTreeReaderValue<Double_t>    theWeight  = {fReader, "theWeight"};
-   
+   TTreeReaderValue<Double_t>    ptlep1  = {fReader, "ptlep1"};
+   TTreeReaderValue<Double_t>    etalep1  = {fReader, "etalep1"};
+   TTreeReaderValue<Double_t>    mtVlepJECnew_new  = {fReader, "mtVlepJECnew_new"};
+   TTreeReaderValue<Double_t>    MET_et_new  = {fReader, "MET_et_new"};
+
    TTreeReaderValue<Int_t>    lep  = {fReader, "lep"};
    TTreeReaderValue<Double_t>    Mla  = {fReader, "Mla"};
    TTreeReaderValue<Double_t>    Mla_f  = {fReader, "Mla_f"};
    TTreeReaderValue<Double_t>    Mva  = {fReader, "Mva"};
    TTreeReaderValue<Double_t>    Mva_f  = {fReader, "Mva_f"};
-   TTreeReaderValue<Int_t>    nlooseeles  = {fReader, "nlooseeles"};
-   TTreeReaderValue<Int_t>    nloosemus  = {fReader, "nloosemus"};
+   //TTreeReaderValue<Int_t>    nlooseeles  = {fReader, "nlooseeles"};
+   //TTreeReaderValue<Int_t>    nloosemus  = {fReader, "nloosemus"};
    TTreeReaderValue<Int_t>    HLT_Ele1  = {fReader, "HLT_Ele1"};
    TTreeReaderValue<Int_t>    HLT_Ele2  = {fReader, "HLT_Ele2"};
    TTreeReaderValue<Int_t>    HLT_Mu1  = {fReader, "HLT_Mu1"};
@@ -148,9 +152,9 @@ nevent_pass++;
 
       // apply selection
       Bool_t muon_cut, electron_cut, cut;
-	  muon_cut = *HLT_Mu2 == 1 &&abs(*lep) == 13 &&*ngoodmus == 1 &&*ngoodeles == 0 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew < 20 &&*MET_et < 30 &&((*jet1pt_orig > 20 && *drj1l_orig > 0.3) || (*jet2pt_orig > 20 && *drj2l_orig > 0.3));
+	  muon_cut = *HLT_Mu2 == 1 &&abs(*lep) == 13 /*&&*ngoodmus == 1 &&*ngoodeles == 0 && (*nloosemus + *nlooseeles) == 1 */&&*mtVlepJECnew_new < 20 &&*MET_et_new < 30 &&((*jet1pt_orig > 20 && *drj1l_orig > 0.3) || (*jet2pt_orig > 20 && *drj2l_orig > 0.3));
 
-      electron_cut = *HLT_Ele2 == 1 &&abs(*lep) == 11 &&*ngoodmus == 0 &&*ngoodeles == 1 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew < 20 &&*MET_et < 30 &&((*jet1pt_orig > 30 && *drj1l_orig > 0.3) || (*jet2pt_orig > 30 && *drj2l_orig > 0.3));
+      electron_cut = *HLT_Ele2 == 1 &&abs(*lep) == 11 /*&&*ngoodmus == 0 &&*ngoodeles == 1 && (*nloosemus + *nlooseeles) == 1 */&&*mtVlepJECnew_new < 20 &&*MET_et_new < 30 &&((*jet1pt_orig > 30 && *drj1l_orig > 0.3) || (*jet2pt_orig > 30 && *drj2l_orig > 0.3));
 
       if(m_channel == "muon") cut = muon_cut;
       if(m_channel == "electron") cut = electron_cut;
@@ -181,14 +185,8 @@ nevent_pass++;
       // add scalef for mc
       if(m_type == "mc") {
          // pu weight
-         pu_weight_SF = h_pu_weight->GetBinContent(h_pu_weight->GetXaxis()->FindBin(*npT));
+         //pu_weight_SF = h_pu_weight->GetBinContent(h_pu_weight->GetXaxis()->FindBin(*npT));
          
-         // photon medium ID scalefactor
-         if(fabs(*photonsceta)<2.5){
-            photon_ID_SF = get_photon_ID(*photonsceta, *photonet, h_photon_ID_weight, " ");
-            photon_ID_up_SF = get_photon_ID(*photonsceta, *photonet, h_photon_ID_weight, "up");
-            photon_ID_low_SF = get_photon_ID(*photonsceta, *photonet, h_photon_ID_weight, "low");
-         }
          // add factor for muon
          if(abs(*lep)==13)
          {
@@ -224,7 +222,7 @@ nevent_pass++;
 
       } //add scalef for mc
 
-      double ptl1 = fill_ptlep1;
+      double ptl1 = (*ptlep1);
       if (ptl1 >= 50) ptl1 = 45;
 
       double weight = 1;

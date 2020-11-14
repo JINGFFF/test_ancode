@@ -219,6 +219,10 @@ public :
 #endif
 
 #ifdef test_cxx
+test::test()
+{
+
+}
 
 test::~test()
 {

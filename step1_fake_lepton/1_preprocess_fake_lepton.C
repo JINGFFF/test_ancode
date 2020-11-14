@@ -49,7 +49,7 @@ int main(int argc, char** argv){
    //clock_t startTime,endTime;
    //startTime = clock();
 
-   test m;
+   class test m;
 cout<<"ok1"<<endl;
 
    m.m_dataset = outname;
@@ -79,7 +79,7 @@ cout<<"ok10"<<endl;
       //TTree *tree1 = (TTree*) file1->Get("PKUCandidates");
       //m.Init();
       TDirectory * dir1 = (TDirectory*)file1->Get("treeDumper");
-      TTree *tree1 = (TTree*) file1->Get("tree1");
+      TTree *tree1 = (TTree*) dir1->Get("tree1");
 	  m.Loop(dir1, tree1);
       //endTime = clock();
       file1->Close();
