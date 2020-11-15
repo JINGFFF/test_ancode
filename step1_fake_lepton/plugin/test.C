@@ -121,6 +121,8 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Double_t>    etalep1  = {fReader, "etalep1"};
    TTreeReaderValue<Double_t>    mtVlepJECnew_new  = {fReader, "mtVlepJECnew_new"};
    TTreeReaderValue<Double_t>    MET_et_new  = {fReader, "MET_et_new"};
+   TTreeReaderValue<Double_t>    MET_et  = {fReader, "MET_et"};
+
    TTreeReaderValue<Double_t>    npT  = {fReader, "npT"};
 
 
@@ -143,20 +145,20 @@ void test::Loop(TDirectory * dir, TTree * tree)
    while (fReader.Next()) {
 nevent_pass++;
 
-      if (jentry % 10000 == 0){ 
+      if (jentry % 2000 == 0){ 
          int ks = floor(50.*jentry/maxEntries);
          string s1(ks,'>');
          string s2(50-ks,'-');
-         cout<<"processing : ["<<"\033[32m"<<s1<<"\033[0m"<<s2<<"]  "<<"\033[33m"<<100.*jentry/maxEntries<<"%  "<<"p_event: "<<p_event<<" n_event: "<<n_event<<"\033[0m"<<endl;
+         //cout<<"processing : ["<<"\033[32m"<<s1<<"\033[0m"<<s2<<"]  "<<"\033[33m"<<100.*jentry/maxEntries<<"%  "<<"p_event: "<<p_event<<" n_event: "<<n_event<<"\033[0m"<<endl;
          }
 
       jentry++;
 
       // apply selection
       Bool_t muon_cut, electron_cut, cut;
-	  muon_cut = *HLT_Mu2 == 1 &&abs(*lep) == 13 &&*ngoodmus == 1 &&*ngoodeles == 0 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et_new < 30 &&((*jet1pt_orig > 20 && *drj1l_orig > 0.3) || (*jet2pt_orig > 20 && *drj2l_orig > 0.3));
+	  muon_cut = *HLT_Mu3 == 1 &&abs(*lep) == 13 &&*ngoodmus == 1 &&*ngoodeles == 0 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et < 30 &&((*jet1pt_orig > 20 && *drj1l_orig > 0.3) || (*jet2pt_orig > 20 && *drj2l_orig > 0.3));
 
-      electron_cut = *HLT_Ele2 == 1 &&abs(*lep) == 11 &&*ngoodmus == 0 &&*ngoodeles == 1 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et_new < 30 &&((*jet1pt_orig > 30 && *drj1l_orig > 0.3) || (*jet2pt_orig > 30 && *drj2l_orig > 0.3));
+      electron_cut = *HLT_Ele2 == 1 &&abs(*lep) == 11 &&*ngoodmus == 0 &&*ngoodeles == 1 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et < 30 &&((*jet1pt_orig > 30 && *drj1l_orig > 0.3) || (*jet2pt_orig > 30 && *drj2l_orig > 0.3));
 
       if(m_channel == "muon") cut = muon_cut;
       if(m_channel == "electron") cut = electron_cut;

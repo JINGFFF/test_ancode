@@ -10,8 +10,19 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+#include <time.h>
+#include <stdlib.h>
 using namespace std;
+ 
+string getTime()
+{
+    time_t timep;
+    time (&timep); 
+    char tmp[64];
+    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S",localtime(&timep) );
+    return tmp;
+}
+
 /*
  * input file list
  * type data: fake, true
@@ -34,7 +45,8 @@ int main(int argc, char** argv){
    int k=1;
    int n = 0;
 
-   system("echo $(date +%F%n%T)");
+   string   time_start = getTime();
+   //system("echo $(date +%F%n%T)");
    TString outname= outdir + "/" + which_channel + "_" + which_type + "_" + tightOrloose + "_" +  which_sample + ".root";
 
    cout<<"\033[34myear               : "<<which_year<<"\033[0m"<<endl;
@@ -46,8 +58,6 @@ int main(int argc, char** argv){
    cout<<"\033[34minput file list    : "<<filetxt<<"\033[0m"<<endl;
    cout<<"\033[34moutput file        : "<<outname<<"\033[0m"<<endl<<endl;
 
-   //clock_t startTime,endTime;
-   //startTime = clock();
 
    class test m;
 cout<<"ok1"<<endl;
@@ -76,20 +86,14 @@ cout<<"ok10"<<endl;
 
       TFile *file1 =new TFile(infilename);
 
-      //TTree *tree1 = (TTree*) file1->Get("PKUCandidates");
-      //m.Init();
       TDirectory * dir1 = (TDirectory*)file1->Get("treeDumper");
       TTree *tree1 = (TTree*) dir1->Get("tree1");
 	  m.Loop(dir1, tree1);
-      //endTime = clock();
       file1->Close();
-      //cout<<"The run time is: "<<(double)(endTime - startTime)/CLOCKS_PER_SEC<<"s"<<endl<<endl;
    }
    m.hist_Scale();
    m.endJob();
-   //endTime = clock();
-   system("echo $(date +%F%n%T)");
-
-   //cout<<"The total run time is: "<<(double)(endTime - startTime)/CLOCKS_PER_SEC<<"s"<<endl<<endl;
+   string   time_end = getTime();
+   cout<<endl<<endl<<"time start : "<<time_start<<endl<<"time end   : "<<time_end<<endl;
    return 0;
 }
