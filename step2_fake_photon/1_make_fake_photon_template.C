@@ -77,6 +77,8 @@ int main(int argc, char** argv){
    m.invert_chiso_high = CHISO_HIGH;
 
    m.Init();
+   m.read_csv_info();
+
    system("echo `date '+%Y%m%d - %Hh  %Mm  %Ss'`");
    while (k>0){
       getline (infile, buffer) ;
