@@ -31,6 +31,21 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include <iostream>
+#include "TLatex.h"
+#include "TH1D.h"
+#include "TH1F.h"
+#include "THStack.h"
+#include "TString.h"
+#include "TLegend.h"
+#include "TLine.h"
+#include "TPad.h"
+#include "TCanvas.h"
+#include "TCut.h"
+#include "TGraph.h"
+#include "math.h"
+
 using namespace std;
 
 // Header file for the classes stored in the TTree if any.
@@ -41,14 +56,13 @@ public :
    TString m_year;
    TString m_sample;
    TString m_type;
-   TString m_template_type;
    TString m_channel;
    TString m_btag_workpoint;
-
-
-   double invert_chiso_low;
-   double invert_chiso_high;
-
+   TString name;
+   double WGbin[6] = {150,400,600,800, 1000, 2e4};
+   double rf[17] ={0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+   
+   int abin, index, iii;
    // pile up weight
    TFile * pu_weight_input;
    TH1D* h_pu_weight;
@@ -84,8 +98,6 @@ public :
 
    // cut for muon and electron channel
    Bool_t muon_cut, electron_cut, cut;
-
-
 
    // define all scalef
    Double_t        photon_ID_SF;
@@ -125,19 +137,46 @@ public :
 
    Double_t        p_event = 0, n_event = 0;
 
-   int barrel_Nbins = 128;
-   double barrel_sieie_lower = 0.00;
-   double barrel_sieie_upper = 0.04;
+   double fill_Mjj;
+   double fill_nVtx;
+   double fill_jet1pt;
+   double fill_jet1eta;
+   double fill_jet2pt;
+   double fill_jet2eta;
+   double fill_lep;
+   double fill_HLT_muon;
+   double fill_HLT_electron;
 
-   int endcap_Nbins = 20;
-   double endcap_sieie_lower = 0.01;
-   double endcap_sieie_upper = 0.06;
+   double fill_ptlep1;
+   double fill_etalep1;
+   double  fill_ngoodmus;
+   double fill_ngoodeles;
+   double fill_nloosemus;
+   double fill_nlooseeles;
+   double fill_photonhaspixelseed;
+   double fill_photonet;
+   double fill_MET_et;
+   double fill_mtVlepJECnew;
+   double fill_drla;
+   double fill_drj1l;
+   double fill_drj2l;
+   double fill_drj1a;
+   double fill_drj2a;
+   double fill_j1metPhi;
+   double fill_j2metPhi;
+   double fill_jet1deepcsv;
+   double fill_jet2deepcsv;
 
-   // setting for barrel and endcap
-   Double_t mla_cut, hoe_cut, chiso_cut_low, chiso_cut_high, photonsc_eta_cut_low, photonsc_eta_cut_high;
-   Double_t nhiso_cut[3];
-   Double_t phoiso_cut[2];
+   double fill_photonsceta;
+   double fill_ptVlepJEC;
+   double fill_photoneta;
+   double fill_zepp;
+   double fill_deltaeta;
+   double fill_Dphiwajj;
+   double fill_Mla;
 
+
+   // btag eff and scale function
    Double_t eff_b_jet_tight[10]  =  {0.375338, 0.493779, 0.553314, 0.575056, 0.579706, 0.563553, 0.491523, 0.327807, 0.105522, 0.0292929};
    Double_t eff_b_jet_medium[10] = {0.565127, 0.663282, 0.714194, 0.737916, 0.750325, 0.745599, 0.701239, 0.590619, 0.390365, 0.216667};
    Double_t eff_b_jet_loose[10] =  {0.753404, 0.813243, 0.850107, 0.87129, 0.88806, 0.89424, 0.881965, 0.846197, 0.798682, 0.70404};
@@ -159,6 +198,12 @@ public :
    TString fuction_l_jet_medium[3];
    TString fuction_l_jet_loose[3];
 
+
+   /// define histogram for fake lepton
+
+   /// define histogram for fake photon
+   //
+
    Int_t           fCurrent; //!current Tree number in a TChain
    TString m_dataset;
 
@@ -171,7 +216,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init();
-   virtual void     Loop(TDirectory * dir, TTree * tree);
+   virtual void     Loop(TDirectory * dir);
    //virtual void     Loop_fake_lepton(TDirectory * dir);
 
    virtual Bool_t   Notify();
@@ -183,17 +228,17 @@ public :
    virtual Double_t b_scale(TString type, TString workpoint, Double_t x);
    virtual Double_t c_scale(TString type, TString workpoint, Double_t x);
    virtual Double_t l_scale(TString type, TString workpoint, Double_t x);
-   virtual Double_t btag_SF(Double_t pt, Double_t eta, Int_t pf, Double_t CSV, Double_t cut_value, TString workpoint, TString up_and_low);
+   Double_t btag_SF(Double_t pt, Double_t eta, Int_t pf, Double_t CSV, Double_t cut_value, TString workpoint, TString up_and_low);
+   void read_csv_info();
 
    void set_cut_value(TString year = "2018");
-   void set_for_barrel_and_endcap(TString isbarrel);
-
    void hist_Sumw2();
    void hist_Scale();
-   void read_csv_info();
+   void save_result();
    void init_sf();
    void endJob();
    TFile *fout;
+   ofstream ParamSetf ;
 };
 
 #endif
@@ -201,23 +246,67 @@ public :
 #ifdef test_cxx
 test::test()  
 {
-   //hist_Sumw2();
+// if parameter tree is not specified (or zero), connect the file
+// used to generate this class and read the Tree.
+   //if (tree == 0) {
+   //   TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("treePKU_69.root");
+   //   if (!f || !f->IsOpen()) {
+   //      f = new TFile("treePKU_69.root");
+   //   }
+      //TDirectory * dir = (TDirectory*)f->Get("treePKU_69.root:/treeDumper");
+      //dir->GetObject("PKUCandidates",tree);
+
+   //}
+   //m_dataset = outname;
+   //m_year = year;
+   //Init(f);
+   hist_Sumw2();
 }
 
 test::~test()
 {
+   //if (!fReader) return;
+   //delete fReader.GetCurrentEntry();
 }
 
 Int_t test::GetEntry(Long64_t entry)
 {
+// Read contents of entry.
+   //if (!fReader) return 0;
+   //return fReader->GetEntry(entry);
 }
 Long64_t test::LoadTree(Long64_t entry)
 {
+// Set the environment to read one entry
+   //if (!fChain) return -5;
+   //Long64_t centry = fChain->LoadTree(entry);
+   //if (centry < 0) return centry;
+   //if (fChain->GetTreeNumber() != fCurrent) {
+   //   fCurrent = fChain->GetTreeNumber();
+   //   Notify();
+   //}
+   //return centry;
 }
 
 void test::Init()
 {
+   // (once per file to be processed).
 
+   // Set branch addresses and branch pointers
+   //if (!f) return;
+   //fCurrent = -1;
+/*
+   // fake lepton weight
+   file_fake_muon_weight = TFile::Open("filelist_dir/data_driven_weight/muon_fakerate.root");
+   file_fake_electron_weight = TFile::Open("filelist_dir/data_driven_weight/electron_fakerate.root");
+   if(m_channel == "muon")     hist_fake_lepton_weight = (TH2D*)file_fake_muon_weight->Get("weight");
+   if(m_channel == "electron") hist_fake_lepton_weight = (TH2D*)file_fake_electron_weight->Get("weight");
+
+   // fake photon weight
+   file_fake_photon_weight = TFile::Open("filelist_dir/data_driven_weight/fake_photon_weight.root");
+   hist_barrel_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("barrel_fake_photon_weight");
+   hist_endcap_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("endcap_fake_photon_weight");
+*/
    // pile up weight
    pu_weight_input = new TFile ("./scalef/puweight_2018.root");
    h_pu_weight = (TH1D*)pu_weight_input->Get("h2");
@@ -251,13 +340,56 @@ void test::Init()
    electron_HLT_weight_input = new TFile ("./scalef/electron/2018_egamma_hlt_sf.root");
    h_electron_HLT_weight = (TH2D*)electron_HLT_weight_input->Get("EGamma_SF2D");
 
-   //hist_Sumw2();
-    
+/*
+   if(index==1)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM0_paramsets_" + ".txt"); name = "fM0";}
+   if(index==2)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM1_paramsets_" + ".txt"); name = "fM1";}
+   if(index==3)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM2_paramsets_" + ".txt"); name = "fM2";}
+   if(index==4)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM3_paramsets_" + ".txt"); name = "fM3";}
+   if(index==5)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM4_paramsets_" + ".txt"); name = "fM4";}
+   if(index==6)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM5_paramsets_" + ".txt"); name = "fM5";}
+   if(index==7)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM6_paramsets_" + ".txt"); name = "fM6";}
+   if(index==8)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fM7_paramsets_" + ".txt"); name = "fM7";}
+   if(index==9)  {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fT0_paramsets_" + ".txt"); name = "fT0";}
+   if(index==10) {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fT1_paramsets_" + ".txt"); name = "fT1";}
+   if(index==11) {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fT2_paramsets_" + ".txt"); name = "fT2";}
+   if(index==12) {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fT5_paramsets_" + ".txt"); name = "fT5";}
+   if(index==13) {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fT6_paramsets_" + ".txt"); name = "fT6";}
+   if(index==14) {ParamSetf.open(m_dataset + "/" + m_year + "_" +  m_channel + "_fT7_paramsets_" + ".txt"); name = "fT7";}
+*/
 
+   if(index==1)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM0_paramsets_" + ".txt"); name = "fM0";}
+   if(index==2)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM1_paramsets_" + ".txt"); name = "fM1";}
+   if(index==3)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM2_paramsets_" + ".txt"); name = "fM2";}
+   if(index==4)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM3_paramsets_" + ".txt"); name = "fM3";}
+   if(index==5)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM4_paramsets_" + ".txt"); name = "fM4";}
+   if(index==6)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM5_paramsets_" + ".txt"); name = "fM5";}
+   if(index==7)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM6_paramsets_" + ".txt"); name = "fM6";}
+   if(index==8)  {ParamSetf.open(m_dataset + "/" + m_year + "_fM7_paramsets_" + ".txt"); name = "fM7";}
+   if(index==9)  {ParamSetf.open(m_dataset + "/" + m_year + "_fT0_paramsets_" + ".txt"); name = "fT0";}
+   if(index==10) {ParamSetf.open(m_dataset + "/" + m_year + "_fT1_paramsets_" + ".txt"); name = "fT1";}
+   if(index==11) {ParamSetf.open(m_dataset + "/" + m_year + "_fT2_paramsets_" + ".txt"); name = "fT2";}
+   if(index==12) {ParamSetf.open(m_dataset + "/" + m_year + "_fT5_paramsets_" + ".txt"); name = "fT5";}
+   if(index==13) {ParamSetf.open(m_dataset + "/" + m_year + "_fT6_paramsets_" + ".txt"); name = "fT6";}
+   if(index==14) {ParamSetf.open(m_dataset + "/" + m_year + "_fT7_paramsets_" + ".txt"); name = "fT7";}
+   fout = new TFile(m_dataset + "/" + m_year + "_" + name + "_WG_aqgc_" + m_btag_workpoint + ".root" , "RECREATE");
+   iii = 1+(index-1)*16;
+
+   TString m_year;
+   TString m_sample;
+   TString m_type;
+   TString m_channel;
+   TString m_btag_workpoint;
+   TString name;
 }
 
 Bool_t test::Notify()
 {
+   // The Notify() function is called when a new file is opened. This
+   // can be either for a new TTree in a TChain or when when a new TTree
+   // is started when using PROOF. It is normally not necessary to make changes
+   // to the generated code, but the routine can be extended by the
+   // user if needed. The return value is currently not used.
+
    return kTRUE;
 }
 
@@ -452,10 +584,153 @@ void test::read_csv_info()
 }
 
 
+
 void test::Show(Long64_t entry)
 {
+// Print contents of entry.
+// If entry is not specified, print current entry
 }
 
+void test::save_result() {
+   //fout = new TFile(m_dataset, "RECREATE");
+   fout->cd();
+
+   double rsm = rf[8];
+   rf[0]=rf[0]/rsm;
+   rf[1]=rf[1]/rsm;
+   rf[2]=rf[2]/rsm;
+   rf[3]=rf[3]/rsm;
+   rf[4]=rf[4]/rsm;
+   rf[5]=rf[5]/rsm;
+   rf[6]=rf[6]/rsm;
+   rf[7]=rf[7]/rsm;
+   rf[8]=rf[8]/rsm; //SM
+   rf[9]=rf[9]/rsm;
+   rf[10]=rf[10]/rsm;
+   rf[11]=rf[11]/rsm;
+   rf[12]=rf[12]/rsm;
+   rf[13]=rf[13]/rsm;
+   rf[14]=rf[14]/rsm;
+   rf[15]=rf[15]/rsm;
+   rf[16]=rf[16]/rsm;
+   //TGraph *gr = new TGraph(17,xf,rf);
+   double low;
+   double high;
+
+   TGraph *gr ;
+   if(index==1) {low=-120; high=120; double xf[17] = { -120, -60, -30, -25, -20, -15, -10, -8, 0, 8, 10, 15, 20, 25, 30, 60, 120}; gr = new TGraph(17,xf,rf);}
+   if(index==2) {low=-200; high=200; double xf[17] = {-200, -80, -60, -40, -30, -25, -20, -10, 0, 10, 20, 25, 30, 40, 60, 80, 200}; gr = new TGraph(17,xf,rf);}
+   if(index==3) {low=-50;  high=50;  double xf[17] = {-50, -20, -15, -13, -11, -10, -5, -1, 0, 1, 5, 10, 11, 13, 15, 20, 50}; gr = new TGraph(17,xf,rf);}
+   if(index==4) {low=-80;  high=80;  double xf[17] = {-80, -40, -30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30, 40, 80}; gr = new TGraph(17,xf,rf);}
+   if(index==5) {low=-80;  high=80;  double xf[17] = {-80, -40, -30, -20, -15, -13, -10, -8, 0, 8, 10, 13, 15, 20, 30, 40, 80}; gr = new TGraph(17,xf,rf);}
+   if(index==6) {low=-90;  high=90;  double xf[17] = {-90, -40, -30, -20, -18, -15, -13, -10, 0, 10, 13, 15, 18, 20, 30, 40, 90}; gr = new TGraph(17,xf,rf);}
+   if(index==7) {low=-200; high=200; double xf[17] = {-200, -80, -60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60, 80, 200}; gr = new TGraph(17,xf,rf);}
+   if(index==8) {low=-200; high=200; double xf[17] = {-200, -80, -60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60, 80, 200}; gr = new TGraph(17,xf,rf);}
+   if(index==9) {low=-10;  high=10;  double xf[17] = {-10, -6, -4, -2, -1.5, -1.2, -1, -0.8, 0, 0.8, 1, 1.2, 1.5, 2, 4, 6, 10}; gr = new TGraph(17,xf,rf);}
+   if(index==10) {low=-10; high=10;  double xf[17] = {-10, -6, -4, -2.5, -1.5, -1, -0.8, -0.5, 0, 0.5, 0.8, 1, 1.5, 2.5, 4, 6, 10}; gr = new TGraph(17,xf,rf);}
+   if(index==11) {low=-20; high=20;  double xf[17] = {-20, -12, -8, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 8, 12, 20}; gr = new TGraph(17,xf,rf);}
+   if(index==12) {low=-8;  high=8;   double xf[17] = {-8, -5, -3, -2.5, -2, -1.5, -1, -0.6, 0, 0.6, 1, 1.5, 2, 2.5, 3, 5, 8}; gr = new TGraph(17,xf,rf);}
+   if(index==13) {low=-8;  high=8;   double xf[17] = {-8, -5, -3.5, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3.5, 5, 8}; gr = new TGraph(17,xf,rf);}
+   if(index==14) {low=-15; high=15;  double xf[17] = {-15, -8, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 8, 15}; gr = new TGraph(17,xf,rf);}
+   
+   //TGraph *gr = new TGraph(17,xf,rf);
+   TString tf1_name = TString("signal_proc_")+name+Form("_bin%u",abin+1);
+   TF1 *fitFunc = new TF1(tf1_name,"[0]*(x**2) + [1]*x + 1",low,high) ;
+
+   cout<<"OK"<<endl;
+   fitFunc->SetParLimits(0,0.,1000) ;
+   cout<<"OK"<<endl;
+   fitFunc->SetLineColor(kBlue) ;
+   cout <<"x1"<<endl;
+   //TFitResult * r = gr->Fit(tf1_name,"ESR") ;
+   gr->Fit(tf1_name,"ESR") ;
+   Double_t chi2   = fitFunc->GetChisquare() ;
+   Double_t par0   = fitFunc->GetParameter(0);
+   Double_t par1   = fitFunc->GetParameter(1);
+   Double_t err0   = fitFunc->GetParError(0) ;
+   Double_t err1   = fitFunc->GetParError(1) ;
+   //r->Print("V") ;
+   fitFunc->Write();
+   cout <<"x2"<<endl;
+
+   TCanvas *c1= new TCanvas("c1","fitFunc",500,500) ;
+   c1->SetGridx(1) ;
+   c1->SetGridy(1) ;
+   cout <<"x3"<<endl;
+
+   gr->SetTitle(TString(" Fitted line of AQGC/SM in WGmass : ")+Form("(%.0f,%.0f)",WGbin[abin],WGbin[abin+1])) ;
+   cout <<"x4"<<endl;
+   gr->GetYaxis()->SetTitleOffset(1.4) ;
+   char buffer2[256];
+   if(index==1) sprintf(buffer2, "fM0/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==2) sprintf(buffer2, "fM1/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==3) sprintf(buffer2, "fM2/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==4) sprintf(buffer2, "fM3/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==5) sprintf(buffer2, "fM4/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==6) sprintf(buffer2, "fM5/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==7) sprintf(buffer2, "fM6/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==8) sprintf(buffer2, "fM7/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==9) sprintf(buffer2, "fT0/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==10) sprintf(buffer2, "fT1/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==11) sprintf(buffer2, "fT2/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==12) sprintf(buffer2, "fT5/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==13) sprintf(buffer2, "fT6/#Lambda^{4} (#times 10^{-12} GeV)");
+   if(index==14) sprintf(buffer2, "fT7/#Lambda^{4} (#times 10^{-12} GeV)");
+		gr->GetXaxis()->SetTitle(buffer2) ;
+		gr->GetYaxis()->SetTitle("Ratio") ;
+		gr->SetMarkerStyle(4) ;
+		cout <<"x5"<<endl;
+		gr->SetLineWidth(2) ;
+		gr->SetLineColor(kBlue) ;
+		gr->Draw("AP") ;
+		cout <<"x6"<<endl;
+		TLegend *leg = new TLegend(0.3,0.58,0.70,0.88) ;
+		leg->SetFillColor(10) ;
+		leg->AddEntry(gr,"Fitted line: r =  p0 x^{2} + p1 x + 1","L") ;
+		cout <<"x7"<<endl;
+		leg->AddEntry(gr,Form("p0 = %f ",par0),"") ;
+		leg->AddEntry(gr,Form("p1 = %f ",par1),"") ;
+		cout <<"x8"<<endl;
+		leg->Draw("SAME") ;
+		cout <<"x9"<<endl;
+		if(index==1) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM0_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==2) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM1_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==3) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM2_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==4) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM3_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==5) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM4_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==6) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM5_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==7) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM6_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==8) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fM7_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==9) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fT0_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==10) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fT1_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==11) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fT2_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==12) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fT5_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==13) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fT6_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+        if(index==14) c1->SaveAs(m_dataset + "/" + m_year + "_" + m_channel + TString("_fT7_fit")+Form("_WGbin_%u",abin)+TString(".png")) ;
+		ParamSetf <<"Bin"<<abin<< ": " << par0 << " " << par1 << " " << endl;
+		cout <<"x10 "<<abin<<endl;
+
+   //fout->Close();
+   //delete fout;
+}
+
+void test::endJob() {
+   //fout = new TFile(m_dataset, "RECREATE");
+   //fout->cd();
+   fout->Close();
+   delete fout;
+   ParamSetf.close();
+}
+
+void test::hist_Sumw2()
+{
+
+}
+
+void test::hist_Scale()
+{
+
+}
 void test::init_sf()
 {
       photon_ID_SF = 1;
@@ -506,13 +781,13 @@ void test::set_cut_value(TString year)
       cut_value[0] = 0.8001;
       cut_value[1] = 0.4941;
       cut_value[2] = 0.1522;
-      lumi = 41.35;
+      lumi = 41.50;
    }
    if(year == "2018"){ //cut_value[3] = {0.7527, 0.4184, 0.1241};
       cut_value[0] = 0.7527;
       cut_value[1] = 0.4184;
       cut_value[2] = 0.1241;
-      lumi = 59.74*0.469205;
+      lumi = 59.74;
    }
 }
 
@@ -966,6 +1241,10 @@ Double_t test::l_scale(TString type, TString workpoint, Double_t x) //central sc
    }
 
 }
+
+
+
+
 
 
 #endif // #ifdef test_cxx

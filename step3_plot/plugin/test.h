@@ -260,6 +260,8 @@ public :
    virtual Double_t b_scale(TString type, TString workpoint, Double_t x);
    virtual Double_t c_scale(TString type, TString workpoint, Double_t x);
    virtual Double_t l_scale(TString type, TString workpoint, Double_t x);
+   Double_t btag_SF(Double_t pt, Double_t eta, Int_t pf, Double_t CSV, Double_t cut_value, TString workpoint, TString up_and_low);
+
 
    void set_cut_value(TString year = "2018");
    void hist_Sumw2();
@@ -759,6 +761,45 @@ Int_t test::Cut(Long64_t entry)
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
+}
+
+Double_t test::btag_SF(Double_t pt, Double_t eta, Int_t pf, Double_t CSV, Double_t cut_value, TString workpoint, TString up_and_low){
+   double tmp_SF = 1;
+   if(fabs(eta)<2.5){
+      if(fabs(pf)==5){
+         if(CSV>cut_value){
+            tmp_SF     = b_scale(up_and_low,workpoint,pt);
+         }
+         if(CSV<cut_value){
+            tmp_SF     = (1-beff(workpoint,pt)*b_scale(up_and_low,workpoint,pt))/(1-beff(workpoint,pt));
+         }
+      }
+
+      if(fabs(pf)==4){
+         if(CSV>cut_value){
+            tmp_SF     = c_scale(up_and_low,workpoint,pt);
+         }
+         if(CSV<cut_value){
+            tmp_SF     = (1-ceff(workpoint,pt)*c_scale(up_and_low,workpoint,pt))/(1-ceff(workpoint,pt));
+         }
+      }
+
+      if(fabs(pf)!=4 && fabs(pf)!=5){
+         if(CSV>cut_value){
+            tmp_SF     = l_scale(up_and_low,workpoint,pt);
+         }
+         if(CSV<cut_value){
+            tmp_SF     = (1-leff(workpoint,pt)*l_scale(up_and_low,workpoint,pt))/(1-leff(workpoint,pt));
+         }
+      }
+   }
+
+   else{
+      tmp_SF     = 1;
+   }
+
+   return tmp_SF;
+
 }
 
 // ----------------------------- b eff and scalef ----------------------------------------------
