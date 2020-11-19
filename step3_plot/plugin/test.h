@@ -170,7 +170,7 @@ public :
    // barrel histogram
    TH1F* barrel_weight = new TH1F("barrel_weight", "barrel_weight", 50, 0, 2);
    TH1F* barrel_nVtx = new TH1F("barrel_nVtx", "barrel_nVtx", 50, 0, 50);
-   TH1F* barrel_ptlep1 = new TH1F("barrel_ptlep1", "barrel_ptlep1", 50, 0.0, 200.0);
+   TH1F* barrel_ptlep1 = new TH1F("barrel_ptlep1", "barrel_ptlep1", 25, 0.0, 200.0);
    TH1F* barrel_etalep1 = new TH1F("barrel_etalep1", "barrel_etalep1", 50, -2.4, 2.4);
    TH1F* barrel_mtVlepJECnew = new TH1F("barrel_mtVlepJECnew", "barrel_mtVlepJECnew", 50, 50.0, 100.0);
    TH1F* barrel_ptVlepJEC = new TH1F("barrel_ptVlepJEC", "barrel_ptVlepJEC", 50, 0.0, 200.0);
@@ -293,7 +293,7 @@ Long64_t test::LoadTree(Long64_t entry)
 
 void test::Init()
 {
-
+/*
    // fake lepton weight
    file_fake_muon_weight = TFile::Open("filelist_dir/data_driven_weight/muon_fakerate.root");
    file_fake_electron_weight = TFile::Open("filelist_dir/data_driven_weight/electron_fakerate.root");
@@ -304,7 +304,7 @@ void test::Init()
    file_fake_photon_weight = TFile::Open("filelist_dir/data_driven_weight/fake_photon_weight.root");
    hist_barrel_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("barrel_fake_photon_weight");
    hist_endcap_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("endcap_fake_photon_weight");
-
+*/
    // pile up weight
    pu_weight_input = new TFile ("./scalef/puweight_2018.root");
    h_pu_weight = (TH1D*)pu_weight_input->Get("h2");

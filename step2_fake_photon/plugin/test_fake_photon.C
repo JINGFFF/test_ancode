@@ -6,6 +6,14 @@
 #include "ele_channel_scale.C"
 #include "muon_channel_scale.C"
 
+   int barrel_Nbins = 128;
+   double barrel_sieie_lower = 0.00;
+   double barrel_sieie_upper = 0.04;
+
+   int endcap_Nbins = 20;
+   double endcap_sieie_lower = 0.01;
+   double endcap_sieie_upper = 0.06;
+
    // barrel histogram
    TH1D* hist_barrel_25to30 = new TH1D("hist_barrel_25to30", "hist_barrel_25to30", barrel_Nbins, barrel_sieie_lower, barrel_sieie_upper);
    TH1D* hist_barrel_30to40 = new TH1D("hist_barrel_30to40", "hist_barrel_30to40", barrel_Nbins, barrel_sieie_lower, barrel_sieie_upper);
@@ -144,8 +152,21 @@ void test::Loop(TDirectory * dir, TTree * tree)
    set_cut_value(m_year);
    //cout<<cut_value[0]<<" "<<cut_value[1]<<" "<<cut_value[2]<<endl;
    int jentry = 0;
-   p_event = p_event + tree->GetEntries("theWeight>0");
-   n_event = n_event + tree->GetEntries("theWeight<0");
+   //p_event = p_event + tree->GetEntries("theWeight>0");
+   //n_event = n_event + tree->GetEntries("theWeight<0");
+  
+   if(!(m_type == "mc")){
+      p_event = 1;//p_event + tree->GetEntries("theWeight>0");
+      n_event = 100;//n_event + tree->GetEntries("theWeight<0");
+
+
+   }
+   else {
+      p_event = p_event + tree->GetEntries("theWeight>0");
+      n_event = n_event + tree->GetEntries("theWeight<0");
+
+
+   }
 
    TTreeReader fReader ;
    fReader.SetTree("PKUCandidates", dir);
@@ -754,7 +775,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
    double real_weight;
 
    while (fReader.Next()) {
-      if (jentry % 30000 == 0){ 
+      if (jentry % 5000 == 0){ 
          int ks = floor(50.*jentry/maxEntries);
          string s1(ks,'>');
          string s2(50-ks,'-');
@@ -763,8 +784,8 @@ void test::Loop(TDirectory * dir, TTree * tree)
       jentry++;
 
       // apply selection
-      muon_cut     = *HLT_Mu2==1  && abs(*lep) == 13 && *ngoodmus==1 && *ngoodeles==0 && *ptlep1>30. &&fabs(*etalep1)<2.4 && *MET_et_new>30.;
-      electron_cut = *HLT_Ele2==1 && abs(*lep) == 11 && *ngoodmus==0 && *ngoodeles==1 && *ptlep1>30. &&fabs(*etalep1)<2.5 && *MET_et_new>30.;
+      muon_cut     = *HLT_Mu2==1  && abs(*lep) == 13 && *ngoodmus==1 && *ngoodeles==0 && *ptlep1>30. &&fabs(*etalep1)<2.4 && *MET_et>30.;
+      electron_cut = *HLT_Ele2==1 && abs(*lep) == 11 && *ngoodmus==0 && *ngoodeles==1 && *ptlep1>30. &&fabs(*etalep1)<2.5 && *MET_et>30.;
 
 	  if(m_channel == "muon"){
 	     cut = *hasphoton ==1. && muon_cut;

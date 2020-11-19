@@ -85,7 +85,7 @@ int main(int argc, char** argv){
 
       TDirectory * dir1 = (TDirectory*)file1->Get("treeDumper");
       TTree *tree1 = (TTree*) dir1->Get("tree1");
-	  m.Loop(dir1, tree1);
+      m.Loop(dir1, tree1);
       file1->Close();
    }
    m.hist_Scale();

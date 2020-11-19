@@ -125,13 +125,13 @@ public :
 
    Double_t        p_event = 0, n_event = 0;
 
-   int barrel_Nbins = 128;
-   double barrel_sieie_lower = 0.00;
-   double barrel_sieie_upper = 0.04;
+   //int barrel_Nbins = 128;
+   //double barrel_sieie_lower = 0.00;
+   //double barrel_sieie_upper = 0.04;
 
-   int endcap_Nbins = 20;
-   double endcap_sieie_lower = 0.01;
-   double endcap_sieie_upper = 0.06;
+   //int endcap_Nbins = 20;
+   //double endcap_sieie_lower = 0.01;
+   //double endcap_sieie_upper = 0.06;
 
    // setting for barrel and endcap
    Double_t mla_cut, hoe_cut, chiso_cut_low, chiso_cut_high, photonsc_eta_cut_low, photonsc_eta_cut_high;
@@ -512,7 +512,7 @@ void test::set_cut_value(TString year)
       cut_value[0] = 0.7527;
       cut_value[1] = 0.4184;
       cut_value[2] = 0.1241;
-      lumi = 59.74*0.469205;
+      lumi = 59.74;
    }
 }
 

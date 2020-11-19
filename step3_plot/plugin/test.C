@@ -14,7 +14,18 @@ void test::Loop(TDirectory * dir, TTree * tree)
    if(m_btag_workpoint == "medium") btag_cut_value = cut_value[1];
    if(m_btag_workpoint == "loose") btag_cut_value = cut_value[2];
 
+   if(!(m_type == "mc")){
+      p_event = 1;//p_event + tree->GetEntries("theWeight>0");
+      n_event = 100;//n_event + tree->GetEntries("theWeight<0");
 
+
+   }
+   else {
+      p_event = p_event + tree->GetEntries("theWeight>0");
+      n_event = n_event + tree->GetEntries("theWeight<0");
+
+
+   }
    cout<<"LUMI : "<<lumi<<endl<<"btag value cut :  "<<cut_value[1]<<endl;
 
    Long64_t nbytes = 0, nb = 0;
@@ -633,8 +644,8 @@ void test::Loop(TDirectory * dir, TTree * tree)
          }
       jentry++;
 
-      if(*theWeight>0) p_event++;
-      if(*theWeight<0) n_event++;
+      //if(*theWeight>0) p_event++;
+      //if(*theWeight<0) n_event++;
 
       if (!(*hasphoton) == 1) continue;
       // apply selection
@@ -839,14 +850,14 @@ void test::Loop(TDirectory * dir, TTree * tree)
       if (ptl1 >= 50) ptl1 = 45;
 
       // data driven weight
-      double fake_lepton_weight, barrel_fake_photon_weight, endcap_fake_photon_weight;
-
+      double fake_lepton_weight = 1, barrel_fake_photon_weight = 1, endcap_fake_photon_weight = 1;
+/*
       if(abs(*lep) == 13)fake_lepton_weight = hist_fake_muon_weight->GetBinContent(hist_fake_muon_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_muon_weight->GetYaxis()->FindBin(ptl1));
-	  if(abs(*lep) == 11)fake_lepton_weight = hist_fake_electron_weight->GetBinContent(hist_fake_electron_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_electron_weight->GetYaxis()->FindBin(ptl1));
+      if(abs(*lep) == 11)fake_lepton_weight = hist_fake_electron_weight->GetBinContent(hist_fake_electron_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_electron_weight->GetYaxis()->FindBin(ptl1));
 
       barrel_fake_photon_weight = hist_barrel_fake_photon_weight->GetBinContent(hist_barrel_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); 
       endcap_fake_photon_weight = hist_endcap_fake_photon_weight->GetBinContent(hist_endcap_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); 
-      
+*/      
       double weight = 1;
       // fill histogram
       // barrel
