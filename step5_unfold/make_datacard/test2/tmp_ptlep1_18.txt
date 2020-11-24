@@ -1,0 +1,9 @@
+ <<< Combine >>> 
+>>> including systematics
+>>> method used is MultiDimFit
+>>> random number generator seed is 123456
+Set Default Value of Parameter r_Bin1 To : 1
+Set Default Value of Parameter r_Bin2 To : 1
+RooArgSet:: = ()
+Computing results starting from expected outcome (a-priori)
+Skipping r_Bin2. Looks like the last fit did not float this parameter. You could try running --algo grid to get the errors.

@@ -46,7 +46,9 @@ public :
    // fake lepton weight
    TFile * file_fake_muon_weight;
    TFile * file_fake_electron_weight;
-   TH2D* hist_fake_lepton_weight;
+   TH2D* hist_fake_muon_weight;
+   TH2D* hist_fake_electron_weight;
+
    // fake photon weight
    TFile * file_fake_photon_weight;
    TH1F* hist_barrel_fake_photon_weight;
@@ -174,161 +176,23 @@ public :
    Double_t eff_b_jet_tight[10]  =  {0.375338, 0.493779, 0.553314, 0.575056, 0.579706, 0.563553, 0.491523, 0.327807, 0.105522, 0.0292929};
    Double_t eff_b_jet_medium[10] = {0.565127, 0.663282, 0.714194, 0.737916, 0.750325, 0.745599, 0.701239, 0.590619, 0.390365, 0.216667};
    Double_t eff_b_jet_loose[10] =  {0.753404, 0.813243, 0.850107, 0.87129, 0.88806, 0.89424, 0.881965, 0.846197, 0.798682, 0.70404};
-   TString fuction_b_jet_tight[19] = {
-   "0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.072564356029033661" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.01551971398293972" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.013589443638920784" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.013067093677818775" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.012084255926311016" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.013244811445474625" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.020085016265511513" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.044389884918928146" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.082598939538002014" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.072564356029033661)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.01551971398293972)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.013589443638920784)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.013067093677818775)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.012084255926311016)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.013244811445474625)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.020085016265511513)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.044389884918928146)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.082598939538002014)"
-   };
-
-   TString fuction_b_jet_medium[19] = {
-   "0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.065904870629310608" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.015055687166750431" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.013506759889423847" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.015106724575161934" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.014620178379118443" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.012161554768681526" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.016239689663052559" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.039990410208702087" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.068454340100288391" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.065904870629310608)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.015055687166750431)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.013506759889423847)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.015106724575161934)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.014620178379118443)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.012161554768681526)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.016239689663052559)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.039990410208702087)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.068454340100288391)" 
-   };
-
-   TString fuction_b_jet_loose[19] = {
-   "0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.15505774319171906" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.03490530326962471" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.034701071679592133" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.034096170216798782" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.027626650407910347" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.02841717004776001" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.027526171877980232" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.094343781471252441" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.17287716269493103" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.062023099511861801)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.013962121680378914)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.013880428858101368)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.013638468459248543)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.011050660163164139)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.011366868391633034)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.011010468937456608)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.037737511098384857)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.069150865077972412)" 
-   };
+   TString fuction_b_jet_tight[19] ;
+   TString fuction_b_jet_medium[19];
+   TString fuction_b_jet_loose[19];
 
    Double_t eff_c_jet_tight[10]  =  {0.0178263, 0.0219464, 0.0242307, 0.0269731, 0.0299322, 0.0316588, 0.0287384, 0.0180558, 0.00498598, 0.00366972};
    Double_t eff_c_jet_medium[10] = {0.120439, 0.128175, 0.130494, 0.13781, 0.14765, 0.154195, 0.146221, 0.120963, 0.0666874, 0.0311927};
    Double_t eff_c_jet_loose[10] =  {0.392685, 0.415126, 0.42917, 0.445494, 0.462387, 0.473021, 0.461477, 0.451609, 0.421237, 0.348624};
-   TString fuction_c_jet_tight[19] = {
-   "0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.25397524237632751" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.054318998008966446" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.047563053667545319" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.045734826475381851" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.042294897139072418" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.046356841921806335" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.070297554135322571" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.15536460280418396" ,
-   "(0.766992+(0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18)))))))+0.28909629583358765" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.25397524237632751)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.054318998008966446)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.047563053667545319)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.045734826475381851)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.042294897139072418)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.046356841921806335)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.070297554135322571)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.15536460280418396)" ,
-   "0.766992+((0.00894732*(log(x+19)*(log(x+18)*(3-(0.423381*log(x+18))))))-0.28909629583358765)" 
-   };
-   TString fuction_c_jet_medium[19] = {
-   "0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.19771461188793182" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.045167062431573868" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.040520280599594116" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.045320175588130951" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.043860536068677902" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.036484666168689728" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.048719070851802826" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.11997123062610626" ,
-   "(0.909339+(0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18)))))))+0.20536302030086517" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.19771461188793182)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.045167062431573868)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.040520280599594116)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.045320175588130951)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.043860536068677902)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.036484666168689728)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.048719070851802826)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.11997123062610626)" ,
-   "0.909339+((0.00354*(log(x+19)*(log(x+18)*(3-(0.471623*log(x+18))))))-0.20536302030086517)"
-   };
-
-   TString fuction_c_jet_loose[19] = {
-   "0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.15505774319171906" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.03490530326962471" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.034701071679592133" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.034096170216798782" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.027626650407910347" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.02841717004776001" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.027526171877980232" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.094343781471252441" ,
-   "(0.917829+(0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18)))))))+0.17287716269493103" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.15505774319171906)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.03490530326962471)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.034701071679592133)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.034096170216798782)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.027626650407910347)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.02841717004776001)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.027526171877980232)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.094343781471252441)" ,
-   "0.917829+((0.00298278*(log(x+19)*(log(x+18)*(3-(0.422392*log(x+18))))))-0.17287716269493103)" 
-   };
+   TString fuction_c_jet_tight[19];
+   TString fuction_c_jet_medium[19];
+   TString fuction_c_jet_loose[19];
 
    Double_t eff_l_jet_tight[10]  =  {0.00115722, 0.000821689, 0.000900955, 0.00110315, 0.0014241, 0.00181297, 0.0020553, 0.00198708, 0.000801618, 0};
    Double_t eff_l_jet_medium[10] = {0.00904002, 0.00806116, 0.00810405, 0.00924306, 0.0113922, 0.0137251, 0.0159489, 0.0189461, 0.0130992, 0.004265};
    Double_t eff_l_jet_loose[10] =  {0.125149, 0.0924003, 0.0847756, 0.0946918, 0.113998, 0.134914, 0.15921, 0.19733, 0.229773, 0.206426};
-   TString fuction_l_jet_tight[3] = {
-   "0.870921+5.90958/sqrt(x)" ,
-   "(0.870921+5.90958/sqrt(x))*(1+(0.207667+0.000165081*x+-1.45307e-07*x*x))" ,
-   "(0.870921+5.90958/sqrt(x))*(1-(0.207667+0.000165081*x+-1.45307e-07*x*x))" 
-   };
-
-   TString fuction_l_jet_medium[3] = {
-   "1.6329+-0.00160255*x+1.9899e-06*x*x+-6.72613e-10*x*x*x" ,
-   "(1.6329+-0.00160255*x+1.9899e-06*x*x+-6.72613e-10*x*x*x)*(1+(0.122811+0.000162564*x+-1.66422e-07*x*x))" ,
-   "(1.6329+-0.00160255*x+1.9899e-06*x*x+-6.72613e-10*x*x*x)*(1-(0.122811+0.000162564*x+-1.66422e-07*x*x))"
-   };
-
-   TString fuction_l_jet_loose[3] = {
-   "1.41852+-0.00040383*x+2.89389e-07*x*x+-3.55101e-11*x*x*x" ,
-   "(1.41852+-0.00040383*x+2.89389e-07*x*x+-3.55101e-11*x*x*x)*(1+(0.0559259+1.96455e-05*x+-3.60571e-08*x*x))" ,
-   "(1.41852+-0.00040383*x+2.89389e-07*x*x+-3.55101e-11*x*x*x)*(1-(0.0559259+1.96455e-05*x+-3.60571e-08*x*x))"
-   };
-
+   TString fuction_l_jet_tight[3];
+   TString fuction_l_jet_medium[3];
+   TString fuction_l_jet_loose[3];
    /// define histogram for fake lepton
 
    /// define histogram for fake photon
@@ -346,7 +210,7 @@ public :
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init();
-   virtual void     Loop(TDirectory * dir);
+   virtual void     Loop(TDirectory * dir, TTree * tree);
    //virtual void     Loop_fake_lepton(TDirectory * dir);
 
    virtual Bool_t   Notify();
@@ -358,6 +222,8 @@ public :
    virtual Double_t b_scale(TString type, TString workpoint, Double_t x);
    virtual Double_t c_scale(TString type, TString workpoint, Double_t x);
    virtual Double_t l_scale(TString type, TString workpoint, Double_t x);
+
+   void read_csv_info();
 
    void set_cut_value(TString year = "2018");
    void hist_Sumw2();
@@ -426,8 +292,8 @@ void test::Init()
    // fake lepton weight
    file_fake_muon_weight = TFile::Open("filelist_dir/data_driven_weight/muon_fakerate.root");
    file_fake_electron_weight = TFile::Open("filelist_dir/data_driven_weight/electron_fakerate.root");
-   if(m_channel == "muon")     hist_fake_lepton_weight = (TH2D*)file_fake_muon_weight->Get("weight");
-   if(m_channel == "electron") hist_fake_lepton_weight = (TH2D*)file_fake_electron_weight->Get("weight");
+   hist_fake_muon_weight = (TH2D*)file_fake_muon_weight->Get("weight");
+   hist_fake_electron_weight = (TH2D*)file_fake_electron_weight->Get("weight");
 
    // fake photon weight
    file_fake_photon_weight = TFile::Open("filelist_dir/data_driven_weight/fake_photon_weight.root");
@@ -489,6 +355,199 @@ Bool_t test::Notify()
    return kTRUE;
 }
 
+void test::read_csv_info()
+{
+   cout<<"start load Btag info!"<<endl;
+   ifstream fin("./scalef/jet/DeepCSV_102XSF_WP_V1.csv");
+   string line_info,input_result;
+   vector<string> vectorString;
+   if(fin) 
+   {
+      while (getline (fin, line_info))
+      {
+         stringstream input(line_info);
+         //cout<<"line_info: "<<line_info<<endl;
+         while(input>>input_result){
+            while (input_result.find(',') != -1) 
+               input_result.erase(input_result.find(','),1);
+            while (input_result.find('"') != -1) 
+               input_result.erase(input_result.find('"'),1);
+            vectorString.push_back(input_result);
+         }
+         //cout<<vectorString.size()<<endl;
+         // for b jet
+         if(vectorString[3] == "0"){
+            if(vectorString[0] == "2"){            
+               if( vectorString[1] == "comb" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_b_jet_tight[0] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "30")fuction_b_jet_tight[1] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "30" && vectorString[7] == "50")fuction_b_jet_tight[2] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "50" && vectorString[7] == "70")fuction_b_jet_tight[3] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "70" && vectorString[7] == "100")fuction_b_jet_tight[4] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "100" && vectorString[7] == "140")fuction_b_jet_tight[5] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "140" && vectorString[7] == "200")fuction_b_jet_tight[6] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "200" && vectorString[7] == "300")fuction_b_jet_tight[7] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "300" && vectorString[7] == "600")fuction_b_jet_tight[8] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_b_jet_tight[9] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "30")fuction_b_jet_tight[10] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "30" && vectorString[7] == "50")fuction_b_jet_tight[11] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "50" && vectorString[7] == "70")fuction_b_jet_tight[12] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "70" && vectorString[7] == "100")fuction_b_jet_tight[13] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "100" && vectorString[7] == "140")fuction_b_jet_tight[14] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "140" && vectorString[7] == "200")fuction_b_jet_tight[15] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "200" && vectorString[7] == "300")fuction_b_jet_tight[16] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "300" && vectorString[7] == "600")fuction_b_jet_tight[17] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_b_jet_tight[18] = vectorString[10];
+            }
+
+            if(vectorString[0] == "1"){
+               if( vectorString[1] == "comb" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_b_jet_medium[0] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "30")fuction_b_jet_medium[1] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "30" && vectorString[7] == "50")fuction_b_jet_medium[2] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "50" && vectorString[7] == "70")fuction_b_jet_medium[3] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "70" && vectorString[7] == "100")fuction_b_jet_medium[4] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "100" && vectorString[7] == "140")fuction_b_jet_medium[5] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "140" && vectorString[7] == "200")fuction_b_jet_medium[6] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "200" && vectorString[7] == "300")fuction_b_jet_medium[7] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "300" && vectorString[7] == "600")fuction_b_jet_medium[8] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_b_jet_medium[9] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "30")fuction_b_jet_medium[10] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "30" && vectorString[7] == "50")fuction_b_jet_medium[11] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "50" && vectorString[7] == "70")fuction_b_jet_medium[12] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "70" && vectorString[7] == "100")fuction_b_jet_medium[13] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "100" && vectorString[7] == "140")fuction_b_jet_medium[14] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "140" && vectorString[7] == "200")fuction_b_jet_medium[15] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "200" && vectorString[7] == "300")fuction_b_jet_medium[16] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "300" && vectorString[7] == "600")fuction_b_jet_medium[17] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_b_jet_medium[18] = vectorString[10];
+            }
+
+            if(vectorString[0] == "0"){
+               if( vectorString[1] == "comb" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_b_jet_loose[0] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "30")fuction_b_jet_loose[1] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "30" && vectorString[7] == "50")fuction_b_jet_loose[2] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "50" && vectorString[7] == "70")fuction_b_jet_loose[3] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "70" && vectorString[7] == "100")fuction_b_jet_loose[4] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "100" && vectorString[7] == "140")fuction_b_jet_loose[5] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "140" && vectorString[7] == "200")fuction_b_jet_loose[6] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "200" && vectorString[7] == "300")fuction_b_jet_loose[7] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "300" && vectorString[7] == "600")fuction_b_jet_loose[8] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_b_jet_loose[9] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "30")fuction_b_jet_loose[10] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "30" && vectorString[7] == "50")fuction_b_jet_loose[11] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "50" && vectorString[7] == "70")fuction_b_jet_loose[12] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "70" && vectorString[7] == "100")fuction_b_jet_loose[13] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "100" && vectorString[7] == "140")fuction_b_jet_loose[14] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "140" && vectorString[7] == "200")fuction_b_jet_loose[15] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "200" && vectorString[7] == "300")fuction_b_jet_loose[16] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "300" && vectorString[7] == "600")fuction_b_jet_loose[17] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_b_jet_loose[18] = vectorString[10];
+            }
+         }
+
+         //for c jet
+         if(vectorString[3] == "0"){
+            if(vectorString[0] == "2"){
+               if( vectorString[1] == "comb" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_c_jet_tight[0] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "30")fuction_c_jet_tight[1] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "30" && vectorString[7] == "50")fuction_c_jet_tight[2] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "50" && vectorString[7] == "70")fuction_c_jet_tight[3] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "70" && vectorString[7] == "100")fuction_c_jet_tight[4] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "100" && vectorString[7] == "140")fuction_c_jet_tight[5] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "140" && vectorString[7] == "200")fuction_c_jet_tight[6] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "200" && vectorString[7] == "300")fuction_c_jet_tight[7] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "300" && vectorString[7] == "600")fuction_c_jet_tight[8] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_c_jet_tight[9] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "30")fuction_c_jet_tight[10] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "30" && vectorString[7] == "50")fuction_c_jet_tight[11] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "50" && vectorString[7] == "70")fuction_c_jet_tight[12] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "70" && vectorString[7] == "100")fuction_c_jet_tight[13] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "100" && vectorString[7] == "140")fuction_c_jet_tight[14] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "140" && vectorString[7] == "200")fuction_c_jet_tight[15] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "200" && vectorString[7] == "300")fuction_c_jet_tight[16] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "300" && vectorString[7] == "600")fuction_c_jet_tight[17] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_c_jet_tight[18] = vectorString[10];
+            }
+
+            if(vectorString[0] == "1"){
+               if( vectorString[1] == "comb" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_c_jet_medium[0] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "30")fuction_c_jet_medium[1] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "30" && vectorString[7] == "50")fuction_c_jet_medium[2] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "50" && vectorString[7] == "70")fuction_c_jet_medium[3] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "70" && vectorString[7] == "100")fuction_c_jet_medium[4] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "100" && vectorString[7] == "140")fuction_c_jet_medium[5] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "140" && vectorString[7] == "200")fuction_c_jet_medium[6] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "200" && vectorString[7] == "300")fuction_c_jet_medium[7] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "300" && vectorString[7] == "600")fuction_c_jet_medium[8] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_c_jet_medium[9] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "30")fuction_c_jet_medium[10] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "30" && vectorString[7] == "50")fuction_c_jet_medium[11] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "50" && vectorString[7] == "70")fuction_c_jet_medium[12] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "70" && vectorString[7] == "100")fuction_c_jet_medium[13] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "100" && vectorString[7] == "140")fuction_c_jet_medium[14] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "140" && vectorString[7] == "200")fuction_c_jet_medium[15] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "200" && vectorString[7] == "300")fuction_c_jet_medium[16] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "300" && vectorString[7] == "600")fuction_c_jet_medium[17] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_c_jet_medium[18] = vectorString[10];
+            }
+
+            if(vectorString[0] == "0"){
+               if( vectorString[1] == "comb" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_c_jet_loose[0] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "30")fuction_c_jet_loose[1] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "30" && vectorString[7] == "50")fuction_c_jet_loose[2] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "50" && vectorString[7] == "70")fuction_c_jet_loose[3] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "70" && vectorString[7] == "100")fuction_c_jet_loose[4] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "100" && vectorString[7] == "140")fuction_c_jet_loose[5] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "140" && vectorString[7] == "200")fuction_c_jet_loose[6] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "200" && vectorString[7] == "300")fuction_c_jet_loose[7] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "300" && vectorString[7] == "600")fuction_c_jet_loose[8] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "up" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_c_jet_loose[9] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "30")fuction_c_jet_loose[10] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "30" && vectorString[7] == "50")fuction_c_jet_loose[11] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "50" && vectorString[7] == "70")fuction_c_jet_loose[12] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "70" && vectorString[7] == "100")fuction_c_jet_loose[13] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "100" && vectorString[7] == "140")fuction_c_jet_loose[14] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "140" && vectorString[7] == "200")fuction_c_jet_loose[15] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "200" && vectorString[7] == "300")fuction_c_jet_loose[16] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "300" && vectorString[7] == "600")fuction_c_jet_loose[17] = vectorString[10];
+               if( vectorString[1] == "comb" && vectorString[2] == "down" && vectorString[6] == "600" && vectorString[7] == "1000")fuction_c_jet_loose[18] = vectorString[10];
+            }
+         }
+  
+         //for l jet
+         if(vectorString[3] == "2"){
+            if(vectorString[0] == "2"){
+               if( vectorString[1] == "incl" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_tight[0] = vectorString[10];
+               if( vectorString[1] == "incl" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_tight[1] = vectorString[10];
+               if( vectorString[1] == "incl" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_tight[2] = vectorString[10];
+            }
+
+            if(vectorString[0] == "1"){
+               if( vectorString[1] == "incl" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_medium[0] = vectorString[10];
+               if( vectorString[1] == "incl" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_medium[1] = vectorString[10];
+               if( vectorString[1] == "incl" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_medium[2] = vectorString[10];
+            }
+
+            if(vectorString[0] == "0"){
+               if( vectorString[1] == "incl" && vectorString[2] == "central" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_loose[0] = vectorString[10];
+               if( vectorString[1] == "incl" && vectorString[2] == "up" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_loose[1] = vectorString[10];
+               if( vectorString[1] == "incl" && vectorString[2] == "down" && vectorString[6] == "20" && vectorString[7] == "1000")fuction_l_jet_loose[2] = vectorString[10];
+            }
+         }
+
+
+         //for(int j=0;j<vectorString.size();j++){
+            //cout<<vectorString[j]<<endl;
+         //}
+         vectorString.clear();
+      }
+   }
+   else 
+   {
+      cout<<"no such file"<<endl;;
+   }
+
+      cout<<"Btag info has been loaded!"<<endl;
+}
 void test::Show(Long64_t entry)
 {
 // Print contents of entry.

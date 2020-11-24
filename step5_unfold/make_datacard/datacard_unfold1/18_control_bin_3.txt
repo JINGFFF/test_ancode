@@ -1,0 +1,27 @@
+imax 1   number of channels
+jmax 17   number of processes-1
+kmax 10  number of nuisance parameters (sources of systematical uncertainties)
+------------
+# we have just one channel, in which we observe 0 events
+bin mubarrel
+observation 669.41
+------------
+# now we list the expected events for signal and all backgrounds in that bin
+# the second process line must have a positive number for backgrounds, and 0 for signal
+# then we list the independent sources of uncertainties, and give their effect (syst. error)
+# on each process and bin
+bin	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel	mubarrel
+process	genbin1	genbin2	genbin3	genbin4	VBSout	WGJets	ST_s	ST_t	ST_tbar	ST_tW	ST_tbarW	TTG	WW	WZ	ZZ	fakephoton	fakelepton	doublefake
+process	-4	-3	-2	-1	0	1	2	3	4	5	6	7	8	9	10	11	12	13
+rate	0	0	0	0.52	4.36	455.65	0.00	0.00	0.06	6.06	5.14	23.18	13.07	1.77	0.00	64.06	50.23	14.78
+------------
+lumi	lnN	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	1.025	-	-	-	#lumi
+photon_ID	lnN	-	-	-	-	-	-	1.03	1.00	1.00	1.00	1.02	1.03	1.03	1.03	1.01	1.00	-	-	-
+electron_ID	lnN	-	-	-	-	-	-	1.03	1.00	1.00	1.00	1.06	1.01	1.02	1.02	1.03	1.00	-	-	-
+electron_Reco	lnN	-	-	-	-	-	-	1.00	1.00	1.00	1.00	1.01	1.00	1.00	1.00	1.00	1.00	-	-	-
+electron_HLT	lnN	-	-	-	-	-	-	1.01	1.00	1.00	1.00	1.01	1.00	1.01	1.01	1.01	1.00	-	-	-
+muon_ID	lnN	-	-	-	-	-	-	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	-	-	-
+muon_iso	lnN	-	-	-	-	-	-	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	-	-	-
+muon_HLT	lnN	-	-	-	-	-	-	1.00	1.00	1.00	1.01	1.00	1.01	1.00	1.01	1.00	1.00	-	-	-
+JEC	lnN	-	-	-	-	-	-	1.06	1.00	1.00	1.00	1.07	1.11	1.06	1.04	1.27	1.00	-	-	-
+JER	lnN	-	-	-	-	-	-	1.06	1.00	1.00	1.00	1.16	1.15	1.02	1.01	1.52	1.00	-	-	-

@@ -7,13 +7,26 @@
 #include "ele_channel_scale.C"
 #include "muon_channel_scale.C"
 
-void test::Loop(TDirectory * dir)
+void test::Loop(TDirectory * dir, TTree * tree)
 {
    set_cut_value(m_year);
    double btag_cut_value;
    if(m_btag_workpoint == "tight") btag_cut_value = cut_value[0];
    if(m_btag_workpoint == "medium") btag_cut_value = cut_value[1];
    if(m_btag_workpoint == "loose") btag_cut_value = cut_value[2];
+
+   if(!(m_type == "mc")){
+      p_event = 1;//p_event + tree->GetEntries("theWeight>0");
+      n_event = 100;//n_event + tree->GetEntries("theWeight<0");
+
+
+   }
+   else {
+      p_event = p_event + tree->GetEntries("theWeight>0");
+      n_event = n_event + tree->GetEntries("theWeight<0");
+
+
+   }
 
 
    cout<<"LUMI : "<<lumi<<endl<<"btag value cut :  "<<cut_value[1]<<endl;
@@ -634,8 +647,6 @@ void test::Loop(TDirectory * dir)
          }
       jentry++;
 
-      if(*theWeight>0) p_event++;
-      if(*theWeight<0) n_event++;
 
       if (!(*hasphoton) == 1) continue;
       // apply selection
@@ -763,7 +774,9 @@ void test::Loop(TDirectory * dir)
 
       if(m_channel == "muon") cut = muon_cut;
       if(m_channel == "electron") cut = electron_cut;
-      if(!cut) continue;
+      if(m_channel == "all") cut = muon_cut || electron_cut;
+
+	  if(!cut) continue;
 //cout<<"pass"<<endl;
       // init all SF
       init_sf();
@@ -833,106 +846,17 @@ void test::Loop(TDirectory * dir)
             electron_HLT_low_SF = get_ele_HLT(*etalep1, *ptlep1, h_electron_HLT_weight, "low");
          }
          // add factor for jets b, c
-         // jet1
          double JET1DEEPCSV      = (*jet1deepcsv_probb_new) + (*jet1deepcsv_probbb_new);
          double JET2DEEPCSV      = (*jet2deepcsv_probb_new) + (*jet2deepcsv_probbb_new);
-         if(fabs(*jet1eta_new)<2.5){
-            if(fabs(*jet1pf)==5){
-               if(JET1DEEPCSV>btag_cut_value){
-                  btag_jet1_SF     = b_scale("central",m_btag_workpoint,*jet1pt_new);
-                  btag_jet1_up_SF  = b_scale("up",m_btag_workpoint,*jet1pt_new);
-                  btag_jet1_low_SF = b_scale("low",m_btag_workpoint,*jet1pt_new);
-               }
-               if(JET1DEEPCSV<btag_cut_value){
-                  btag_jet1_SF     = (1-beff(m_btag_workpoint,*jet1pt_new)*b_scale("central",m_btag_workpoint,*jet1pt_new))/(1-beff(m_btag_workpoint,*jet1pt_new));
-                  btag_jet1_up_SF  = (1-beff(m_btag_workpoint,*jet1pt_new)*b_scale("up",m_btag_workpoint,*jet1pt_new))/(1-beff(m_btag_workpoint,*jet1pt_new));
-                  btag_jet1_low_SF = (1-beff(m_btag_workpoint,*jet1pt_new)*b_scale("low",m_btag_workpoint,*jet1pt_new))/(1-beff(m_btag_workpoint,*jet1pt_new));
-               }
-            }
 
-            if(fabs(*jet1pf)==4){
-               if(JET1DEEPCSV>btag_cut_value){
-                  btag_jet1_SF     = c_scale("central",m_btag_workpoint,*jet1pt_new);
-                  btag_jet1_up_SF  = c_scale("up",m_btag_workpoint,*jet1pt_new);
-                  btag_jet1_low_SF = c_scale("low",m_btag_workpoint,*jet1pt_new);
-               }
-               if(JET1DEEPCSV<btag_cut_value){
-                  btag_jet1_SF     = (1-ceff(m_btag_workpoint,*jet1pt_new)*c_scale("central",m_btag_workpoint,*jet1pt_new))/(1-ceff(m_btag_workpoint,*jet1pt_new));
-                  btag_jet1_up_SF  = (1-ceff(m_btag_workpoint,*jet1pt_new)*c_scale("up",m_btag_workpoint,*jet1pt_new))/(1-ceff(m_btag_workpoint,*jet1pt_new));
-                  btag_jet1_low_SF = (1-ceff(m_btag_workpoint,*jet1pt_new)*c_scale("low",m_btag_workpoint,*jet1pt_new))/(1-ceff(m_btag_workpoint,*jet1pt_new));
-               }
-            }
+         //test
+         btag_jet1_SF     = btag_SF(*jet1pt_new, *jet1eta_new, *jet1pf, JET1DEEPCSV, btag_cut_value, m_btag_workpoint, "central");
+         //btag_jet1_up_SF  = btag_SF(*jet1pt_new, *jet1eta_new, *jet1pf, JET1DEEPCSV, btag_cut_value, m_btag_workpoint, "up");
+         //btag_jet1_low_SF = btag_SF(*jet1pt_new, *jet1eta_new, *jet1pf, JET1DEEPCSV, btag_cut_value, m_btag_workpoint, "low");
 
-
-            if(fabs(*jet1pf)!=4 && fabs(*jet1pf)!=5){
-               if(JET1DEEPCSV>btag_cut_value){
-                  btag_jet1_SF     = l_scale("central",m_btag_workpoint,*jet1pt_new);
-                  btag_jet1_up_SF  = l_scale("up",m_btag_workpoint,*jet1pt_new);
-                  btag_jet1_low_SF = l_scale("low",m_btag_workpoint,*jet1pt_new);
-               }
-               if(JET1DEEPCSV<btag_cut_value){
-                  btag_jet1_SF     = (1-leff(m_btag_workpoint,*jet1pt_new)*l_scale("central",m_btag_workpoint,*jet1pt_new))/(1-leff(m_btag_workpoint,*jet1pt_new));
-                  btag_jet1_up_SF  = (1-leff(m_btag_workpoint,*jet1pt_new)*l_scale("up",m_btag_workpoint,*jet1pt_new))/(1-leff(m_btag_workpoint,*jet1pt_new));
-                  btag_jet1_low_SF = (1-leff(m_btag_workpoint,*jet1pt_new)*l_scale("low",m_btag_workpoint,*jet1pt_new))/(1-leff(m_btag_workpoint,*jet1pt_new));
-               }
-            }
-         }
-
-         else{
-            btag_jet1_SF     = 1;
-            btag_jet1_up_SF  = 1;
-            btag_jet1_low_SF = 1;
-         }
-
-         // jet2
-         if(fabs(*jet2eta_new)<2.5){
-            if(fabs(*jet2pf)==5){
-               if(JET2DEEPCSV>btag_cut_value){
-                  btag_jet2_SF     = b_scale("central",m_btag_workpoint,*jet2pt_new);
-                  btag_jet2_up_SF  = b_scale("up",m_btag_workpoint,*jet2pt_new);
-                  btag_jet2_low_SF = b_scale("low",m_btag_workpoint,*jet2pt_new);
-
-               }
-               if(JET2DEEPCSV<btag_cut_value){
-                  btag_jet2_SF     = (1-beff(m_btag_workpoint,*jet2pt_new)*b_scale("central",m_btag_workpoint,*jet2pt_new))/(1-beff(m_btag_workpoint,*jet2pt_new));
-                  btag_jet2_up_SF  = (1-beff(m_btag_workpoint,*jet2pt_new)*b_scale("up",m_btag_workpoint,*jet2pt_new))/(1-beff(m_btag_workpoint,*jet2pt_new));
-                  btag_jet2_low_SF = (1-beff(m_btag_workpoint,*jet2pt_new)*b_scale("low",m_btag_workpoint,*jet2pt_new))/(1-beff(m_btag_workpoint,*jet2pt_new));
-               }
-            }
-
-            if(fabs(*jet2pf)==4){
-               if(JET2DEEPCSV>btag_cut_value){
-                  btag_jet2_SF     = c_scale("central",m_btag_workpoint,*jet2pt_new);
-                  btag_jet2_up_SF  = c_scale("up",m_btag_workpoint,*jet2pt_new);
-                  btag_jet2_low_SF = c_scale("low",m_btag_workpoint,*jet2pt_new);
-               }
-               if(JET2DEEPCSV<btag_cut_value){
-                  btag_jet2_SF     = (1-ceff(m_btag_workpoint,*jet2pt_new)*c_scale("central",m_btag_workpoint,*jet2pt_new))/(1-ceff(m_btag_workpoint,*jet2pt_new));
-                  btag_jet2_up_SF  = (1-ceff(m_btag_workpoint,*jet2pt_new)*c_scale("up",m_btag_workpoint,*jet2pt_new))/(1-ceff(m_btag_workpoint,*jet2pt_new));
-                  btag_jet2_low_SF = (1-ceff(m_btag_workpoint,*jet2pt_new)*c_scale("low",m_btag_workpoint,*jet2pt_new))/(1-ceff(m_btag_workpoint,*jet2pt_new));
-               }
-            }
-
-            if(fabs(*jet2pf)!=4 && fabs(*jet2pf)!=5){
-               if(JET2DEEPCSV>btag_cut_value){
-                  btag_jet2_SF     = l_scale("central",m_btag_workpoint,*jet2pt_new);
-                  btag_jet2_up_SF  = l_scale("up",m_btag_workpoint,*jet2pt_new);
-                  btag_jet2_low_SF = l_scale("low",m_btag_workpoint,*jet2pt_new);
-               }
-               if(JET2DEEPCSV<btag_cut_value){
-                  btag_jet2_SF     = (1-leff(m_btag_workpoint,*jet2pt_new)*l_scale("central",m_btag_workpoint,*jet2pt_new))/(1-leff(m_btag_workpoint,*jet2pt_new));
-                  btag_jet2_up_SF  = (1-leff(m_btag_workpoint,*jet2pt_new)*l_scale("up",m_btag_workpoint,*jet2pt_new))/(1-leff(m_btag_workpoint,*jet2pt_new));
-                  btag_jet2_low_SF = (1-leff(m_btag_workpoint,*jet2pt_new)*l_scale("low",m_btag_workpoint,*jet2pt_new))/(1-leff(m_btag_workpoint,*jet2pt_new));
-               }
-            }
-         }
-
-         else{
-            btag_jet2_SF     = 1;
-            btag_jet2_up_SF  = 1;
-            btag_jet2_low_SF = 1;
-         }
-
+         btag_jet2_SF     = btag_SF(*jet2pt_new, *jet2eta_new, *jet2pf, JET1DEEPCSV, btag_cut_value, m_btag_workpoint, "central");
+         //btag_jet2_up_SF  = btag_SF(*jet2pt_new, *jet2eta_new, *jet2pf, JET1DEEPCSV, btag_cut_value, m_btag_workpoint, "up");
+         //btag_jet2_low_SF = btag_SF(*jet2pt_new, *jet2eta_new, *jet2pf, JET1DEEPCSV, btag_cut_value, m_btag_workpoint, "low");
 
       } //add scalef for mc
 
@@ -941,8 +865,10 @@ void test::Loop(TDirectory * dir)
 
       // data driven weight
       double fake_lepton_weight, barrel_fake_photon_weight, endcap_fake_photon_weight;
-      fake_lepton_weight = hist_fake_lepton_weight->GetBinContent(hist_fake_lepton_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_lepton_weight->GetYaxis()->FindBin(ptl1)); //fake lepton weight
-      barrel_fake_photon_weight = hist_barrel_fake_photon_weight->GetBinContent(hist_barrel_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); //fake photon weight
+      if(abs(*lep) == 13)fake_lepton_weight = hist_fake_muon_weight->GetBinContent(hist_fake_muon_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_muon_weight->GetYaxis()->FindBin(ptl1)); //fake lepton weight
+	  if(abs(*lep) == 11)fake_lepton_weight = hist_fake_electron_weight->GetBinContent(hist_fake_electron_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_electron_weight->GetYaxis()->FindBin(ptl1)); //fake lepton weight
+
+	  barrel_fake_photon_weight = hist_barrel_fake_photon_weight->GetBinContent(hist_barrel_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); //fake photon weight
       endcap_fake_photon_weight = hist_endcap_fake_photon_weight->GetBinContent(hist_endcap_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); //fake photon weight
       
       double weight = 1, weight_up = 1, weight_down = 1;
