@@ -77,11 +77,20 @@ void test::Loop(TDirectory * dir, TTree * tree)
    //cout<<cut_value[0]<<" "<<cut_value[1]<<" "<<cut_value[2]<<endl;
    int jentry = 0;
 
-   p_event = 1;//p_event + tree->GetEntries("theWeight>0");
-   n_event = 100;//n_event + tree->GetEntries("theWeight<0");
+   if(!(m_type == "mc")){
+      p_event = 1;//p_event + tree->GetEntries("theWeight>0");
+      n_event = 100;//n_event + tree->GetEntries("theWeight<0");
 
+
+   }
+   else {
+      p_event = p_event + tree->GetEntries("theWeight>0");
+      n_event = n_event + tree->GetEntries("theWeight<0");
+
+
+   }
    TTreeReader fReader ;
-   fReader.SetTree("tree2", dir);
+   fReader.SetTree("PKUCandidates", dir);
    TTreeReaderValue<Int_t>    ngoodmus  = {fReader, "ngoodmus"};
    TTreeReaderValue<Int_t>    ngoodeles  = {fReader, "ngoodeles"};
    TTreeReaderValue<Int_t>    jet1hf_orig  = {fReader, "jet1hf_orig"};
@@ -158,9 +167,9 @@ nevent_pass++;
 
       // apply selection
       Bool_t muon_cut, electron_cut, cut;
-	  muon_cut = *HLT_Mu2 == 1 &&abs(*lep) == 13 &&*ngoodmus == 1 &&*ngoodeles == 0 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew < 20 &&*MET_et < 30 &&((*jet1pt_orig > 20 && *drj1l_orig > 0.3) || (*jet2pt_orig > 20 && *drj2l_orig > 0.3));
+	  muon_cut = *HLT_Mu2 == 1 &&abs(*lep) == 13 &&*ngoodmus == 1 &&*ngoodeles == 0 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et_new < 30 &&((*jet1pt_orig > 20 && *drj1l_orig > 0.3) || (*jet2pt_orig > 20 && *drj2l_orig > 0.3));
 
-      electron_cut = *HLT_Ele2 == 1 &&abs(*lep) == 11 &&*ngoodmus == 0 &&*ngoodeles == 1 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et < 30 &&((*jet1pt_orig > 30 && *drj1l_orig > 0.3) || (*jet2pt_orig > 30 && *drj2l_orig > 0.3));
+      electron_cut = *HLT_Ele2 == 1 &&abs(*lep) == 11 &&*ngoodmus == 0 &&*ngoodeles == 1 && (*nloosemus + *nlooseeles) == 1 &&*mtVlepJECnew_new < 20 &&*MET_et_new < 30 &&((*jet1pt_orig > 30 && *drj1l_orig > 0.3) || (*jet2pt_orig > 30 && *drj2l_orig > 0.3));
 
       if(m_channel == "muon") cut = muon_cut;
       if(m_channel == "electron") cut = electron_cut;
@@ -170,9 +179,9 @@ nevent_pass++;
       // cross section SF
       if(m_sample == "WGJJ")          { cross_section_SF=1000.*0.5439   *fabs(*theWeight)/(*theWeight); }
       if(m_sample == "WGJets")        { cross_section_SF=1000.*192.3    *fabs(*theWeight)/(*theWeight); }
-      if(m_sample == "W0Jets")        { cross_section_SF=1000.*55971.0  *fabs(*theWeight)/(*theWeight); }
-      if(m_sample == "W1Jets")        { cross_section_SF=1000.*6942.0   *fabs(*theWeight)/(*theWeight); }
-      if(m_sample == "W2Jets")        { cross_section_SF=1000.*1459.0   *fabs(*theWeight)/(*theWeight); }
+      if(m_sample == "WJets_0j")        { cross_section_SF=1000.*55971.0  *fabs(*theWeight)/(*theWeight); }
+      if(m_sample == "WJets_1j")        { cross_section_SF=1000.*6942.0   *fabs(*theWeight)/(*theWeight); }
+      if(m_sample == "WJets_2j")        { cross_section_SF=1000.*1459.0   *fabs(*theWeight)/(*theWeight); }
       if(m_sample == "ZJets")         { cross_section_SF=1000.*5765.4   *fabs(*theWeight)/(*theWeight); }
       if(m_sample == "ZG")            { cross_section_SF=1000.*47.46    *fabs(*theWeight)/(*theWeight); }
       if(m_sample == "TTG")       { cross_section_SF=1000.*4.078    *fabs(*theWeight)/(*theWeight); }
