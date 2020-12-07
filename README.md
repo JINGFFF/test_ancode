@@ -1,9 +1,9 @@
 #### step 1 : fake lepton estimation
-*    *g++ -o make_hist `root-config --cflags --glibs` 1_preprocess_fake_lepton.C
+*    *g++ -o make_hist `root-config --cflags --glibs` 1_preprocess_fake_lepton.C*
     
-     *./make_hist filelist_dir/loose_DY.txt out 2018 muon mc DY loose
+     *./make_hist filelist_dir/loose_DY.txt out 2018 muon mc DY loose*
 
-*    *g++ -o cal_fakerate `root-config --cflags --glibs` 2_calculate_fake_lepton_rate.C
+*    *g++ -o cal_fakerate `root-config --cflags --glibs` 2_calculate_fake_lepton_rate.C*
 
      ./cal_fakerate 2018 muon 1_out1 2_out_1
 #### step 2 : fake photom estimation
