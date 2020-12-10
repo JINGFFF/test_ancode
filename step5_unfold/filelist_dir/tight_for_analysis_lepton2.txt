@@ -1,0 +1,8 @@
+/eos/user/j/jipeng/SingleMuon/2018_tight_for_analysis_single_muon_A.root
+/eos/user/j/jipeng/SingleMuon/2018_tight_for_analysis_single_muon_B.root
+/eos/user/j/jipeng/SingleMuon/2018_tight_for_analysis_single_muon_C.root
+/eos/user/j/jipeng/SingleMuon/2018_tight_for_analysis_single_muon_D.root
+/eos/user/j/jipeng/EGamma/2018_tight_for_analysis_single_electron_A.root
+/eos/user/j/jipeng/EGamma/2018_tight_for_analysis_single_electron_B.root
+/eos/user/j/jipeng/EGamma/2018_tight_for_analysis_single_electron_C.root
+/eos/user/j/jipeng/EGamma/2018_tight_for_analysis_single_electron_D.root

@@ -1,0 +1,4 @@
+/eos/user/j/jipeng/EGamma/2018_loose_for_analysis_single_electron_A.root
+/eos/user/j/jipeng/EGamma/2018_loose_for_analysis_single_electron_B.root
+/eos/user/j/jipeng/EGamma/2018_loose_for_analysis_single_electron_C.root
+/eos/user/j/jipeng/EGamma/2018_loose_for_analysis_single_electron_D.root

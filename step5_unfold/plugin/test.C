@@ -60,44 +60,44 @@ void test::ResetValue(){
 }
 
 
-double ptlepBins[3]={20,100,400};
-double photonEtBins[3]={20,100,400};
-double jetptBins[3]={30,550,800};
+double ptlepBins[5]={20,100,400};
+double photonEtBins[5]={20,100,400};
+double jetptBins[5]={30,550,800};
 double MvaBins[3]={100,150,1000};
-double Mjj_Signal_Bins[3]={500,1000,2000};
-double Mjj_Control_Bins[3]={500,1000,2000};
+double Mjj_Signal_Bins[4]={500,1000,2000};
+double Mjj_Control_Bins[4]={500,1000,2000};
 
-Double_t mjj_bins[4]={500, 800, 1200, 2000};
-Double_t detajj_bins[3]={2.5, 4.5, 6.5};
+Double_t mjj_bins[3]={500, 1000, 2000};
+Double_t detajj_bins[4]={2.5, 4.5, 6.5};
+Double_t tdbins[6] = {0,1,2,3,4,5};
 
 TH1D * hist_ptlep = new TH1D("hist_ptlep","hist_ptlep", 2, ptlepBins);
 TH1D * hist_photonEt = new TH1D("hist_photonEt","hist_photonEt", 2, photonEtBins);
 TH1D * hist_jet1pt = new TH1D("hist_jet1pt","hist_jet1pt", 2, jetptBins);
 TH1D * hist_Mva = new TH1D("hist_Mva","hist_Mva", 2, MvaBins);
-TH2D * hist2D_Mjj_detajj = new TH2D("hist2D_Mjj_detajj","hist2D_Mjj_detajj", 3, mjj_bins, 2, detajj_bins);
+TH1D * hist_Mjj_detajj = new TH1D("hist_Mjj_detajj","hist_Mjj_detajj", 4, tdbins);
 
 TH1D * hist_Mjj_Signal = new TH1D("hist_Mjj_Signal","hist_Mjj_Signal", 2, Mjj_Signal_Bins);
 TH1D * hist_Mjj_Control = new TH1D("hist_Mjj_Control","hist_Mjj_Control", 2, Mjj_Control_Bins);
 
 
-TH1D * hist_gen_ptlep = new TH1D("hist_gen_ptlep","hist_gen_ptlep", 2, ptlepBins);
-TH1D * hist_gen_photonEt = new TH1D("hist_gen_photonEt","hist_gen_photonEt", 2, photonEtBins);
-TH1D * hist_gen_jet1pt = new TH1D("hist_gen_jet1pt","hist_gen_jet1pt", 2, jetptBins);
-TH1D * hist_gen_Mva = new TH1D("hist_gen_Mva","hist_gen_Mva", 2, MvaBins);
-TH2D * hist2D_gen_Mjj_detajj = new TH2D("hist2D_gen_Mjj_detajj","hist2D_gen_Mjj_detajj", 3, mjj_bins, 2, detajj_bins);
+TH2D * hist_gen_ptlep = new TH2D("hist_gen_ptlep","hist_gen_ptlep", 2, ptlepBins,2, ptlepBins);
+TH2D * hist_gen_photonEt = new TH2D("hist_gen_photonEt","hist_gen_photonEt", 2, photonEtBins,2, photonEtBins);
+TH2D * hist_gen_jet1pt = new TH2D("hist_gen_jet1pt","hist_gen_jet1pt", 2, jetptBins, 2, jetptBins);
+TH2D * hist_gen_Mva = new TH2D("hist_gen_Mva","hist_gen_Mva", 2, MvaBins,2, MvaBins);
+TH2D * hist_gen_Mjj_detajj = new TH2D("hist_gen_Mjj_detajj","hist_gen_Mjj_detajj", 4, tdbins, 4, tdbins);
 
-TH1D * hist_gen_Mjj_Signal = new TH1D("hist_gen_Mjj_Signal","hist_gen_Mjj_Signal", 2, Mjj_Signal_Bins);
-TH1D * hist_gen_Mjj_Control = new TH1D("hist_gen_Mjj_Control","hist_gen_Mjj_Control", 2, Mjj_Control_Bins);
+TH2D * hist_gen_Mjj_Signal = new TH2D("hist_gen_Mjj_Signal","hist_gen_Mjj_Signal", 2, Mjj_Signal_Bins,2, Mjj_Signal_Bins);
+TH2D * hist_gen_Mjj_Control = new TH2D("hist_gen_Mjj_Control","hist_gen_Mjj_Control", 2, Mjj_Control_Bins,2, Mjj_Control_Bins);
 
-TH1D * hist_outgen_ptlep = new TH1D("hist_outgen_ptlep","hist_outgen_ptlep", 2, ptlepBins);
-TH1D * hist_outgen_photonEt = new TH1D("hist_outgen_photonEt","hist_outgen_photonEt", 2, photonEtBins);
-TH1D * hist_outgen_jet1pt = new TH1D("hist_outgen_jet1pt","hist_outgen_jet1pt", 2, jetptBins);
-TH1D * hist_outgen_Mva = new TH1D("hist_outgen_Mva","hist_outgen_Mva", 2, MvaBins);
-TH2D * hist2D_outgen_Mjj_detajj = new TH2D("hist2D_outgen_Mjj_detajj","hist2D_outgen_Mjj_detajj", 3, mjj_bins, 2, detajj_bins);
+TH2D * hist_outgen_ptlep = new TH2D("hist_outgen_ptlep","hist_outgen_ptlep", 2, ptlepBins,2, ptlepBins);
+TH2D * hist_outgen_photonEt = new TH2D("hist_outgen_photonEt","hist_outgen_photonEt", 2, photonEtBins,2, photonEtBins);
+TH2D * hist_outgen_jet1pt = new TH2D("hist_outgen_jet1pt","hist_outgen_jet1pt", 2, jetptBins,2, jetptBins);
+TH2D * hist_outgen_Mva = new TH2D("hist_outgen_Mva","hist_outgen_Mva", 2, MvaBins,2, MvaBins);
+TH2D * hist_outgen_Mjj_detajj = new TH2D("hist_outgen_Mjj_detajj","hist_outgen_Mjj_detajj", 4, tdbins, 4, tdbins);
 
-TH1D * hist_outgen_Mjj_Signal = new TH1D("hist_outgen_Mjj_Signal","hist_outgen_Mjj_Signal", 2, Mjj_Signal_Bins);
-TH1D * hist_outgen_Mjj_Control = new TH1D("hist_outgen_Mjj_Control","hist_outgen_Mjj_Control", 2, Mjj_Control_Bins);
-
+TH2D * hist_outgen_Mjj_Signal = new TH2D("hist_outgen_Mjj_Signal","hist_outgen_Mjj_Signal", 2, Mjj_Signal_Bins,2, Mjj_Signal_Bins);
+TH2D * hist_outgen_Mjj_Control = new TH2D("hist_outgen_Mjj_Control","hist_outgen_Mjj_Control", 2, Mjj_Control_Bins,2, Mjj_Control_Bins);
 
 void test::endJob() {
    fout = new TFile(m_dataset, "RECREATE");
@@ -108,9 +108,9 @@ void test::endJob() {
    hist_Mva->Write();
    hist_Mjj_Signal->Write();
    hist_Mjj_Control->Write();
-   hist2D_Mjj_detajj->Write();
-   hist2D_gen_Mjj_detajj->Write();
-   hist2D_outgen_Mjj_detajj->Write();
+   hist_Mjj_detajj->Write();
+   hist_gen_Mjj_detajj->Write();
+   hist_outgen_Mjj_detajj->Write();
 
    hist_gen_ptlep->Write();
    hist_gen_photonEt->Write();
@@ -153,9 +153,9 @@ void test::hist_Sumw2()
    hist_outgen_Mjj_Signal->Sumw2();
    hist_outgen_Mjj_Control->Sumw2();
 
-   hist2D_Mjj_detajj->Sumw2();
-   hist2D_gen_Mjj_detajj->Sumw2();
-   hist2D_outgen_Mjj_detajj->Sumw2();
+   hist_Mjj_detajj->Sumw2();
+   hist_gen_Mjj_detajj->Sumw2();
+   hist_outgen_Mjj_detajj->Sumw2();
 
 }
 
@@ -183,9 +183,9 @@ void test::hist_Scale()
       hist_outgen_Mjj_Signal->Scale(1/(p_event - n_event));
       hist_outgen_Mjj_Control->Scale(1/(p_event - n_event));
 
-      hist2D_Mjj_detajj->Scale(1/(p_event - n_event));
-      hist2D_gen_Mjj_detajj->Scale(1/(p_event - n_event));
-      hist2D_outgen_Mjj_detajj->Scale(1/(p_event - n_event));
+      hist_Mjj_detajj->Scale(1/(p_event - n_event));
+      hist_gen_Mjj_detajj->Scale(1/(p_event - n_event));
+      hist_outgen_Mjj_detajj->Scale(1/(p_event - n_event));
    }
   
 }
@@ -219,8 +219,8 @@ void test::Loop(TDirectory * dir, TTree * tree)
 
    }
 
+
    cout<<"LUMI : "<<lumi<<endl<<"btag value cut :  "<<cut_value[1]<<endl;
-   int nevent_pass = 0;
 
    Long64_t nbytes = 0, nb = 0;
    set_cut_value(m_year);
@@ -269,8 +269,12 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Double_t>    nump  = {fReader, "nump"};
    TTreeReaderValue<Double_t>    numm  = {fReader, "numm"};
    TTreeReaderValue<Double_t>    npT  = {fReader, "npT"};
-   TTreeReaderArray<Double_t>    pweight = {fReader, "pweight"};//for EW and QCD WG PDF
+   //TTreeReaderArray<Double_t>    pweight = {fReader, "pweight"};//for EW and QCD WG PDF
    
+   double pweight[703];
+   for (int ip=0; ip<703; ip++){
+      pweight[ip] = 1;
+   }
    
    TTreeReaderValue<Int_t>    lep  = {fReader, "lep"};
    TTreeReaderValue<Double_t>    ptVlep  = {fReader, "ptVlep"};
@@ -311,7 +315,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Int_t>    nlooseeles  = {fReader, "nlooseeles"};
    TTreeReaderValue<Int_t>    nloosemus  = {fReader, "nloosemus"};
    //TTreeReaderArray<Double_t>    photon_hoe  = {fReader, "photon_hoe"};
-/*
+
    TTreeReaderArray<Double_t>    genphoton_pt  = {fReader, "genphoton_pt"};
    TTreeReaderArray<Double_t>    genphoton_eta  = {fReader, "genphoton_eta"};
    TTreeReaderArray<Double_t>    genphoton_phi  = {fReader, "genphoton_phi"};
@@ -326,7 +330,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderArray<Double_t>    genjet_eta  = {fReader, "genjet_eta"};
    TTreeReaderArray<Double_t>    genjet_phi  = {fReader, "genjet_phi"};
    TTreeReaderArray<Double_t>    genjet_e  = {fReader, "genjet_e"};
-*/
+
 
    TTreeReaderValue<Double_t>    photon_pt  = {fReader, "photon_pt"};
    TTreeReaderValue<Double_t>    photon_eta  = {fReader, "photon_eta"};
@@ -842,8 +846,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
    Long64_t maxEntries = fReader.GetEntries(false);
    cout << "Number of events to be analyzed : " << maxEntries << std::endl;
    while (fReader.Next()) {
-nevent_pass++;
-
+//cout<<"ok"<<endl;
       if (jentry % 10000 == 0){ 
          int ks = floor(50.*jentry/maxEntries);
          string s1(ks,'>');
@@ -853,6 +856,8 @@ nevent_pass++;
 
       jentry++;
 
+      //if(*theWeight>0) p_event++;
+      //if(*theWeight<0) n_event++;
 
       if (!(*hasphoton) == 1) continue;
       // apply selection
@@ -899,7 +904,7 @@ nevent_pass++;
          fill_jet2pf_JER_down     = (*jet2pf_JER_down);
 
          fill_lep                 = (*lep);
-         fill_HLT_muon            = (*HLT_Mu3);
+         fill_HLT_muon            = (*HLT_Mu2);
          fill_HLT_electron        = (*HLT_Ele2);
          fill_ptlep1              = (*ptlep1);
          fill_etalep1             = (*etalep1);
@@ -1109,7 +1114,7 @@ nevent_pass++;
          fill_jet2pf_JER_down     = (*jet2pf_JER_down_f);
 
          fill_lep                 = (*lep);
-         fill_HLT_muon            = (*HLT_Mu3);
+         fill_HLT_muon            = (*HLT_Mu2);
          fill_HLT_electron        = (*HLT_Ele2);
          fill_ptlep1              = (*ptlep1);
          fill_etalep1             = (*etalep1);
@@ -1282,10 +1287,172 @@ nevent_pass++;
       }
 
 
+      int jet_index[2];
+      // gen information
+      ResetValue();
+	  int pho1_index=0,jet1_index=0,muon1_index=0,ele1_index=0;
+      TLorentzVector for_gen_lep1p4;
+	  TLorentzVector for_gen_photonp42;
+	  TLorentzVector for_gen_vp4;
+
+      for(int i=0;i<6;i++){
+         genphoton[i] = genphoton_pt[i]>20 &&( (fabs(genphoton_eta[i])<1.4442) || ( fabs(genphoton_eta[i])<2.5 && fabs(genphoton_eta[i])>1.566 ) );
+         genjet[i] = genjet_pt[i]>30 && fabs(genjet_eta[i])<4.7;
+         genmuon[i] = genmuon_pt[i]>20 && fabs(genmuon_eta[i])<2.4;
+         genele[i] = genelectron_pt[i]>25 && fabs(genelectron_eta[i])<2.5;
+
+         if(genjet[i]) vector_jet.push_back(genjet_pt[i]);
+         else vector_jet.push_back(0);
+
+         if(genphoton[i]) vector_photon.push_back(genphoton_pt[i]);
+         else vector_photon.push_back(0);
+
+         if(genmuon[i]) vector_muon.push_back(genmuon_pt[i]);
+         else vector_muon.push_back(0);
+
+         if(genele[i]) vector_ele.push_back(genelectron_pt[i]);
+         else vector_ele.push_back(0);
+	
+      }
+
+
+      
+      biggest_muon1=max_element(begin(vector_muon),end(vector_muon));
+	  muon1_index = distance( begin(vector_muon), biggest_muon1);
+
+      biggest_ele1=max_element(begin(vector_ele),end(vector_ele));
+      ele1_index = distance( begin(vector_ele), biggest_ele1);
+      if(genmuon_pt[muon1_index]>genelectron_pt[ele1_index]){
+         genlep = 13;
+         genlep1pt  = genmuon_pt[muon1_index];
+         genlep1eta = genmuon_eta[muon1_index];
+         genlep1phi = genmuon_phi[muon1_index];
+         for_gen_lep1p4.SetPtEtaPhiM(genlep1pt, genlep1eta, genlep1phi, 0.105666);
+
+         for(int for_gen_iphoton=0; for_gen_iphoton<6; for_gen_iphoton++){
+            TLorentzVector for_gen_photon_temp;
+            for_gen_photon_temp.SetPtEtaPhiM(genphoton_pt[for_gen_iphoton],genphoton_eta[for_gen_iphoton],genphoton_phi[for_gen_iphoton],0);
+            if( for_gen_lep1p4.DeltaR(for_gen_photon_temp)<0.1) {for_gen_lep1p4+=for_gen_photon_temp;continue;}
+         }
+         genlep1pt  = for_gen_lep1p4.Pt();
+         genlep1eta = for_gen_lep1p4.Eta();
+         genlep1phi = for_gen_lep1p4.Phi();
+
+
+      }
+      else if(genmuon_pt[muon1_index]<=genelectron_pt[ele1_index]){
+         genlep = 11;
+         genlep1pt  = genelectron_pt[ele1_index];
+         genlep1eta = genelectron_eta[ele1_index];
+         genlep1phi = genelectron_phi[ele1_index];
+         for_gen_lep1p4.SetPtEtaPhiM(genlep1pt, genlep1eta, genlep1phi, 0.00051);
+
+         for(int for_gen_iphoton=0; for_gen_iphoton<6; for_gen_iphoton++){
+            TLorentzVector for_gen_photon_temp;
+            for_gen_photon_temp.SetPtEtaPhiM(genphoton_pt[for_gen_iphoton],genphoton_eta[for_gen_iphoton],genphoton_phi[for_gen_iphoton],0);
+            if( for_gen_lep1p4.DeltaR(for_gen_photon_temp)<0.1) {for_gen_lep1p4+=for_gen_photon_temp;continue;}
+         }
+         genlep1pt  = for_gen_lep1p4.Pt();
+         genlep1eta = for_gen_lep1p4.Eta();
+         genlep1phi = for_gen_lep1p4.Phi();
+
+     }
+
+      genyVlep  =(for_gen_lep1p4).Eta();
+	  genphiVlep=(for_gen_lep1p4).Phi();
+	  genptVlep =(for_gen_lep1p4).Pt();
+	  genmassVlep=(for_gen_lep1p4).M();
+	  for_gen_vp4.SetPtEtaPhiM(genptVlep,genyVlep,genphiVlep,genmassVlep);
+
+      for(int gen_photon_index = 0; gen_photon_index<6; gen_photon_index++){
+         delta_R(genphoton_eta[gen_photon_index],genphoton_phi[gen_photon_index], genlep1eta,genlep1phi) < 0.5;
+         //cout<<"drla:  "<<delta_R(genphoton_eta[gen_photon_index],genphoton_phi[gen_photon_index], genlep1eta,genlep1phi)<<endl;
+         vector_photon[gen_photon_index] = 0;
+
+      }
+
+      biggest_photon=max_element(begin(vector_photon),end(vector_photon));
+      //cout<<"pho index:"<<*biggest_photon<<endl;
+      if(*biggest_photon>=0){
+         pho1_index = distance( begin(vector_photon), biggest_photon);
+         //cout<<pho1_index<<" "<<genphoton_pt[pho1_index];
+         genphotonet= genphoton_pt[pho1_index];
+         genphotoneta= genphoton_eta[pho1_index];
+         genphotonphi= genphoton_phi[pho1_index];
+         for_gen_photonp42.SetPtEtaPhiM(genphotonet, genphotoneta, genphotonphi,0); 
+         genWGmass=(for_gen_vp4+for_gen_photonp42).M();
+         gendrla1 = delta_R(genphotoneta,genphotonphi,genlep1eta,genlep1phi);
+	
+         Int_t jetindexphoton12[2] = {-1,-1};
+         for(Int_t i=0; i<6; i++)
+         {
+            if(genphotonet>0){
+               double drtmp1=delta_R(genjet_eta[i], genjet_phi[i], genphotoneta,genphotonphi);
+               double drjlep1 = delta_R(genjet_eta[i], genjet_phi[i],genlep1eta,genlep1phi);
+               if(genjet_pt[i]>0 && drtmp1>0.5 &&drjlep1>0.5  && jetindexphoton12[0]==-1&&jetindexphoton12[1]==-1) {
+                  jetindexphoton12[0] = i;
+                  continue;
+               }
+               if(genjet_pt[i]>0 && drtmp1>0.5 &&drjlep1>0.5  && jetindexphoton12[0]!=-1&&jetindexphoton12[1]==-1) {
+                  if(delta_R(genjet_eta[i], genjet_phi[i],genjet_eta[jetindexphoton12[0]], genjet_phi[jetindexphoton12[0]])>0.5){
+                     jetindexphoton12[1] = i;
+                     continue;
+                  }
+               }
+            }
+         }
+
+
+         jet_index[0] = jetindexphoton12[0];
+         jet_index[1] = jetindexphoton12[1];
+         if(jetindexphoton12[0]>-1 && jetindexphoton12[1]>-1)
+         {
+            genjet1pt  = genjet_pt[jetindexphoton12[0]];
+            genjet1eta = genjet_eta[jetindexphoton12[0]];
+			genjet1phi = genjet_phi[jetindexphoton12[0]];
+            genjet1e   = genjet_e[jetindexphoton12[0]];
+            genjet2pt  = genjet_pt[jetindexphoton12[1]];
+            genjet2eta = genjet_eta[jetindexphoton12[1]];
+            genjet2phi = genjet_phi[jetindexphoton12[1]];
+            genjet2e   = genjet_e[jetindexphoton12[1]];
+            gendrj1a= delta_R(genjet1eta,genjet1phi,genphotoneta,genphotonphi);
+            gendrj2a= delta_R(genjet2eta,genjet2phi,genphotoneta,genphotonphi);
+            gendrj1l= delta_R(genjet1eta,genjet1phi,genlep1eta,genlep1phi);
+            gendrj2l= delta_R(genjet2eta,genjet2phi,genlep1eta,genlep1phi);
+			
+            TLorentzVector for_gen_j1p4;
+            for_gen_j1p4.SetPtEtaPhiE(genjet1pt, genjet1eta, genjet1phi, genjet1e);
+			
+            TLorentzVector for_gen_j2p4;
+            for_gen_j2p4.SetPtEtaPhiE(genjet2pt, genjet2eta, genjet2phi, genjet2e);
+			
+            TLorentzVector photonp4;
+            photonp4.SetPtEtaPhiM(genphotonet, genphotoneta, genphotonphi, 0);
+			
+			
+            genMla = (photonp4+for_gen_vp4).M();
+            genMjj=(for_gen_j1p4 + for_gen_j2p4).M();
+            genzepp = fabs((for_gen_vp4+photonp4).Rapidity() - (for_gen_j1p4.Rapidity() + for_gen_j2p4.Rapidity())/ 2.0);
+            gendetajj = fabs(genjet1eta - genjet2eta);
+            gendelta_phi=fabs((for_gen_vp4+photonp4).Phi()-(for_gen_j1p4+for_gen_j2p4).Phi());
+			
+            if (gendelta_phi>Pi) gendelta_phi=2*Pi-gendelta_phi;
+            if (fabs(genjet1phi-genjet2phi)>Pi) gendrjj = sqrt((genjet1eta-genjet2eta)*(genjet1eta-genjet2eta)+(2*Pi-fabs(genjet1phi-genjet2phi))*(2*Pi-fabs(genjet1phi-genjet2phi)));
+            else gendrjj = sqrt((genjet1eta-genjet2eta)*(genjet1eta-genjet2eta)+(fabs(genjet1phi-genjet2phi))*(fabs(genjet1phi-genjet2phi)));
+		
+         }
+
+      }
+      
+      vector_photon.clear();
+      vector_jet.clear();
+      vector_muon.clear();
+      vector_ele.clear();
+
+
+
       if(m_channel == "muon" &&  !(fill_HLT_muon==1 && abs(fill_lep)==13 && fill_ptlep1>30. && fabs(fill_etalep1)<2.4 && fill_ngoodmus==1 && fill_ngoodeles==0 &&(fill_nloosemus+fill_nlooseeles)==1)) continue;
       if(m_channel == "electron" && !(fill_HLT_electron==1 && abs(fill_lep)==11 && fill_ptlep1>30. && fabs(fill_etalep1)<2.5 && fill_ngoodmus==0 && fill_ngoodeles==1 &&(fill_nloosemus+fill_nlooseeles)==1)) continue;
-      if(m_channel == "muon" &&  !(fill_HLT_muon==1 && abs(fill_lep)==13 && fill_ptlep1>30. && fabs(fill_etalep1)<2.4 && fill_ngoodmus==1 && fill_ngoodeles==0 &&(fill_nloosemus+fill_nlooseeles)==1)) continue;
-      if(m_channel == "all" && !((fill_HLT_electron==1 && abs(fill_lep)==11 && fill_ptlep1>30. && fabs(fill_etalep1)<2.5 && fill_ngoodmus==0 && fill_ngoodeles==1 &&(fill_nloosemus+fill_nlooseeles)==1)||(fill_HLT_muon==1 && abs(fill_lep)==13 && fill_ptlep1>30. && fabs(fill_etalep1)<2.4 && fill_ngoodmus==1 && fill_ngoodeles==0 &&(fill_nloosemus+fill_nlooseeles)==1))) continue;
 
       // signal region cuts
       muon_cut_signal_region = fill_HLT_muon==1
@@ -1307,6 +1474,22 @@ nevent_pass++;
                  && fill_jet1deepcsv < cut_value[1] && fill_jet2deepcsv < cut_value[1]
                  ;
 
+     gen_muon_cut_signal_region = genlep==13 && genlep1pt>30 && fabs(genlep1eta)<2.4
+                 && genphotonet>25 
+                 //&& genphotonet<400 
+                 && fabs(genphotoneta)<2.5 && (fabs(genphotoneta)>1.566 || fabs(genphotoneta)<1.4442)
+                 && genjet1pt>40 && genjet2pt>30 
+                 && fabs(genjet1eta)<4.7 && fabs(genjet2eta)<4.7
+                 && gendrla1>0.5 
+                 && gendrj1a>0.5 && gendrj2a>0.5 && gendrj1l>0.5 && gendrj2l>0.5
+                 && genMjj >500 && gendetajj>2.5 
+                 //&& genWGmass >100 
+                 && genMla > 30 
+                 //&& gendelta_phi >1.8
+                 //&& genzepp <0.9 
+                 && *genMET >30
+                 ;
+
       electron_cut_signal_region = fill_HLT_electron==1
                  && fill_Mjj>500.
                  //&& fill_Mva > 100. 
@@ -1326,6 +1509,24 @@ nevent_pass++;
                  && fill_jet1deepcsv < cut_value[1] && fill_jet2deepcsv < cut_value[1]
                  && fabs(fill_Mla - 91.2) > 10;
 
+     gen_electron_cut_signal_region = genlep==11 && genlep1pt>30 && fabs(genlep1eta)<2.5
+                 && genphotonet>25 
+                 //&& genphotonet<400
+                 && fabs(genphotoneta)<2.5 && (fabs(genphotoneta)>1.566 || fabs(genphotoneta)<1.4442)
+                 && genjet1pt>40 && genjet2pt>30 
+                 && fabs(genjet1eta)<4.7 && fabs(genjet2eta)<4.7
+                 && gendrla1>0.5 
+                 && gendrj1a>0.5 && gendrj2a>0.5 && gendrj1l>0.5 && gendrj2l>0.5
+                 && genMjj >500 && gendetajj>2.5 
+                 //&& genWGmass >100 
+                 && genMla > 30 
+                 //&& gendelta_phi >1.8
+                 //&& genzepp <0.9 
+                 && *genMET >30
+                 && fabs(genMla - 91.2) > 10
+                 ;
+
+
       // control region cuts
       muon_cut_control_region = fill_HLT_muon==1
                  && fill_Mjj>200. && fill_Mjj<400.
@@ -1338,7 +1539,7 @@ nevent_pass++;
                  && fill_drla>0.5 && fill_drj1l>0.5 && fill_drj2l>0.5 && fill_drj1a>0.5 && fill_drj2a>0.5
                  //&& fabs(fill_j1metPhi)>0.5 && fabs(fill_j2metPhi)>0.5
                  && fill_jet1deepcsv < cut_value[1] && fill_jet2deepcsv < cut_value[1];
-/*
+
      gen_muon_cut_control_region = genlep==13 && genlep1pt>30 && fabs(genlep1eta)<2.4
                  && genphotonet>25 //&& genphotonet<400 
                  && fabs(genphotoneta)<2.5 && (fabs(genphotoneta)>1.566 || fabs(genphotoneta)<1.4442)
@@ -1348,7 +1549,7 @@ nevent_pass++;
                  && gendrj1a>0.5 && gendrj2a>0.5 && gendrj1l>0.5 && gendrj2l>0.5
                  && genMjj>200 && genMjj<400
                  && *genMET >30;
-*/
+
       electron_cut_control_region = fill_HLT_electron==1
                  && fill_Mjj>200. && fill_Mjj<400.
                  && fill_jet1pt>40. && fabs(fill_jet1eta)<4.7 && fill_jet2pt>30. && fabs(fill_jet2eta)<4.7
@@ -1360,6 +1561,17 @@ nevent_pass++;
                  //&& fabs(fill_j1metPhi)>0.5 && fabs(fill_j2metPhi)>0.5
                  && fill_jet1deepcsv < cut_value[1] && fill_jet2deepcsv < cut_value[1]
                  && fabs(fill_Mla - 91.2) > 10;
+
+     gen_electron_cut_control_region = genlep==11 && genlep1pt>30 && fabs(genlep1eta)<2.5
+                 && genphotonet>25 //&& genphotonet<400 
+                 && fabs(genphotoneta)<2.5 && (fabs(genphotoneta)>1.566 || fabs(genphotoneta)<1.4442)
+                 && genjet1pt>40 && genjet2pt>30 
+                 && fabs(genjet1eta)<4.7 && fabs(genjet2eta)<4.7
+                 && gendrla1>0.5 
+                 && gendrj1a>0.5 && gendrj2a>0.5 && gendrj1l>0.5 && gendrj2l>0.5
+                 && genMjj >200 && genMjj<400
+                 && *genMET >30
+                 && fabs(genMla - 91.2) > 10;
 
       bool cut1, cut2, cut3, cut4, cut5;
 
@@ -1402,28 +1614,7 @@ nevent_pass++;
       }
 
 
-      if(m_channel == "all"){
-         if (m_region == "signal"){
-            cut1 = electron_cut_signal_region || muon_cut_signal_region;
-            cut2 = gen_electron_cut_signal_region || gen_muon_cut_signal_region;
-
-         }
-         else if (m_region == "control"){
-            cut1 = electron_cut_control_region || muon_cut_control_region;
-            cut2 = gen_electron_cut_control_region || muon_cut_control_region;
-
-         }
-         else if (m_region == "aqgc"){
-            cut1 = electron_cut_aqgc_region || muon_cut_aqgc_region;
-            cut2 = gen_electron_cut_aqgc_region || gen_muon_cut_aqgc_region;
-
-         }
-         else continue;
-      }
-
-
-/*
-n++;
+/*n++;
 if(cut1){
 n1=n1+1;
 if(genlep1pt>30 ) s1 = s1+1;
@@ -1481,8 +1672,7 @@ cout<<n<<" "<<n1<<"   "<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<" "<< s6<<" "<<
 
 
       if(!cut1) continue;
-//nevent_pass++;
-//cout<<nevent_pass<<" pass"<<endl;
+
 //cout<<"pass"<<endl;
       // init all SF
       init_sf();
@@ -1574,10 +1764,11 @@ cout<<n<<" "<<n1<<"   "<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<" "<< s6<<" "<<
 
       // data driven weight
       double fake_lepton_weight, barrel_fake_photon_weight, endcap_fake_photon_weight, barrel_fake_photon_weight_up, barrel_fake_photon_weight_down, endcap_fake_photon_weight_up, endcap_fake_photon_weight_down;
-      if(abs(*lep)==13)fake_lepton_weight = hist_fake_muon_weight->GetBinContent(hist_fake_muon_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_muon_weight->GetYaxis()->FindBin(ptl1)); //fake lepton weight
-	  if(abs(*lep)==11)fake_lepton_weight = hist_fake_electron_weight->GetBinContent(hist_fake_electron_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_electron_weight->GetYaxis()->FindBin(ptl1)); //fake lepton weight
 
-	  barrel_fake_photon_weight = hist_barrel_fake_photon_weight->GetBinContent(hist_barrel_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); //fake photon weight
+      if(abs(*lep) == 13)fake_lepton_weight = hist_fake_muon_weight->GetBinContent(hist_fake_muon_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_muon_weight->GetYaxis()->FindBin(ptl1));
+      if(abs(*lep) == 11)fake_lepton_weight = hist_fake_electron_weight->GetBinContent(hist_fake_electron_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_electron_weight->GetYaxis()->FindBin(ptl1));
+
+      barrel_fake_photon_weight = hist_barrel_fake_photon_weight->GetBinContent(hist_barrel_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); //fake photon weight
 
       endcap_fake_photon_weight = hist_endcap_fake_photon_weight->GetBinContent(hist_endcap_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); //fake photon weight
 
@@ -1607,14 +1798,125 @@ cout<<n<<" "<<n1<<"   "<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<" "<< s6<<" "<<
             weight = cross_section_SF * pu_weight_SF * photon_ID_SF * electron_ID_SF * electron_Reco_SF * electron_HLT_SF *muon_ID_SF * muon_iso_SF * muon_HLT_SF*btag_jet1_SF * btag_jet2_SF;
 
          }
+
+
          
-         hist_ptlep->Fill(fill_ptlep1,weight);
-         hist_photonEt->Fill(fill_photonet,weight);
-         hist_jet1pt->Fill(fill_jet1pt,weight);
-         hist_Mva->Fill(fill_Mva,weight);
-         hist2D_Mjj_detajj->Fill(fill_Mjj,fill_deltaeta,weight);
-         hist_Mjj_Signal->Fill(fill_Mjj,weight);
-         hist_Mjj_Control->Fill(fill_Mjj,weight);
+         hist_ptlep->Fill(fill_ptlep1, weight);
+         hist_photonEt->Fill(fill_photonet, weight);
+         hist_jet1pt->Fill(fill_jet1pt, weight);
+         hist_Mva->Fill(fill_Mva, weight);
+
+            if(fill_Mjj>500. &&fill_Mjj<800. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               hist_Mjj_detajj->Fill(0.5, weight);
+            }
+
+            if(fill_Mjj>=800. &&fill_Mjj<1200. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               hist_Mjj_detajj->Fill(1.5, weight);
+
+            }
+
+            if(fill_Mjj>=1200. &&fill_Mjj<2000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               hist_Mjj_detajj->Fill(2.5, weight);
+
+            }
+
+
+            if(fill_Mjj>500. &&fill_Mjj<800. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+                 hist_Mjj_detajj->Fill(3.5, weight);
+
+            }
+
+            if(fill_Mjj>=800. &&fill_Mjj<1200. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               hist_Mjj_detajj->Fill(4.5, weight);
+
+            }
+
+            if(fill_Mjj>=1200. &&fill_Mjj<2000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               hist_Mjj_detajj->Fill(5.5, weight);
+
+            }
+         //hist_Mjj_detajj->Fill(fill_Mjj, fill_deltaeta, weight);
+         hist_Mjj_Signal->Fill(fill_Mjj, weight);
+         hist_Mjj_Control->Fill(fill_Mjj, weight);
+
+         if(cut2){
+            hist_gen_ptlep->Fill(genlep1pt, fill_ptlep1, weight);
+            hist_gen_photonEt->Fill(genphotonet, fill_photonet, weight);
+            hist_gen_jet1pt->Fill(genjet1pt, fill_jet1pt, weight);
+            hist_gen_Mva->Fill(genWGmass, fill_Mva,  weight);
+            hist_gen_Mjj_Signal->Fill(genMjj, fill_Mjj, weight);
+            hist_gen_Mjj_Control->Fill(genMjj, fill_Mjj, weight);
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,0.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,0.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,1.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,1.5,weight);
+            }
+
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,2.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,2.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,3.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,3.5,weight);
+
+            }
+         }
+         else{
+            hist_outgen_ptlep->Fill(genlep1pt, fill_ptlep1, weight);
+            hist_outgen_photonEt->Fill(genphotonet, fill_photonet, weight);
+            hist_outgen_jet1pt->Fill(genjet1pt, fill_jet1pt, weight);
+            hist_outgen_Mva->Fill(genWGmass, fill_Mva,  weight);
+            hist_outgen_Mjj_Signal->Fill(genMjj, fill_Mjj, weight);
+            hist_outgen_Mjj_Control->Fill(genMjj, fill_Mjj, weight);
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,0.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,0.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,1.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,1.5,weight);
+            }
+
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,2.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,2.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,3.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,3.5,weight);
+
+            }
+
+         }
+
       }
 
       // endcap
@@ -1645,7 +1947,116 @@ cout<<n<<" "<<n1<<"   "<<s1<<" "<<s2<<" "<<s3<<" "<<s4<<" "<<s5<<" "<< s6<<" "<<
          hist_Mva->Fill(fill_Mva,weight);
          hist_Mjj_Signal->Fill(fill_Mjj,weight);
          hist_Mjj_Control->Fill(fill_Mjj,weight);
-         hist2D_Mjj_detajj->Fill(fill_Mjj,fill_deltaeta,weight);
+            if(fill_Mjj>500. &&fill_Mjj<800. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               hist_Mjj_detajj->Fill(0.5, weight);
+            }
+
+            if(fill_Mjj>=800. &&fill_Mjj<1200. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               hist_Mjj_detajj->Fill(1.5, weight);
+
+            }
+
+            if(fill_Mjj>=1200. &&fill_Mjj<2000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               hist_Mjj_detajj->Fill(2.5, weight);
+
+            }
+
+
+            if(fill_Mjj>500. &&fill_Mjj<800. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+                 hist_Mjj_detajj->Fill(3.5, weight);
+
+            }
+
+            if(fill_Mjj>=800. &&fill_Mjj<1200. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               hist_Mjj_detajj->Fill(4.5, weight);
+
+            }
+
+            if(fill_Mjj>=1200. &&fill_Mjj<2000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               hist_Mjj_detajj->Fill(5.5, weight);
+
+            }
+         //hist_Mjj_detajj->Fill(fill_Mjj,fill_deltaeta,weight);
+
+         if(cut2){
+            hist_gen_ptlep->Fill(genlep1pt, fill_ptlep1, weight);
+            hist_gen_photonEt->Fill(genphotonet, fill_photonet, weight);
+            hist_gen_jet1pt->Fill(genjet1pt, fill_jet1pt, weight);
+            hist_gen_Mva->Fill(genWGmass, fill_Mva,  weight);
+            hist_gen_Mjj_Signal->Fill(genMjj, fill_Mjj, weight);
+            hist_gen_Mjj_Control->Fill(genMjj, fill_Mjj, weight);
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,0.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,0.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,1.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,1.5,weight);
+            }
+
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,2.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,2.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_gen_Mjj_detajj->Fill(0.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_gen_Mjj_detajj->Fill(1.5,3.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_gen_Mjj_detajj->Fill(2.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_gen_Mjj_detajj->Fill(3.5,3.5,weight);
+
+            }
+
+
+         }
+         else{
+            hist_outgen_ptlep->Fill(genlep1pt, fill_ptlep1, weight);
+            hist_outgen_photonEt->Fill(genphotonet, fill_photonet, weight);
+            hist_outgen_jet1pt->Fill(genjet1pt, fill_jet1pt, weight);
+            hist_outgen_Mva->Fill(genWGmass, fill_Mva,  weight);
+            hist_outgen_Mjj_Signal->Fill(genMjj, fill_Mjj, weight);
+            hist_outgen_Mjj_Control->Fill(genMjj, fill_Mjj, weight);
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,0.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,0.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,0.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>2.5 &&fill_deltaeta<4.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,1.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,1.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,1.5,weight);
+            }
+
+
+            if(fill_Mjj>500. &&fill_Mjj<1000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,2.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,2.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,2.5,weight);
+            }
+
+            if(fill_Mjj>=1000. &&fill_Mjj<2000. &&fill_deltaeta>4.5 &&fill_deltaeta<6.5){
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>2.5 &&gendetajj<4.5)    hist_outgen_Mjj_detajj->Fill(0.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>2.5 &&gendetajj<4.5)  hist_outgen_Mjj_detajj->Fill(1.5,3.5,weight);
+               if(genMjj>500. &&genMjj<1000. &&gendetajj>4.5 &&gendetajj<6.5)    hist_outgen_Mjj_detajj->Fill(2.5,3.5,weight);
+               if(genMjj>=1000. &&genMjj<2000. &&gendetajj>4.5 &&gendetajj<6.5)  hist_outgen_Mjj_detajj->Fill(3.5,3.5,weight);
+
+            }
+
+         }
       }
       //jentry++;
    }

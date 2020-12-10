@@ -81,19 +81,19 @@ int main(int argc, char** argv){
       cout<<"file "<<n<<" : "<<infilename<<endl;
       if(infilename.Contains("#")) {
          cout<<"Do not run this file !!!"<<endl; 
-
+      }
       TFile *file1 =new TFile(infilename);
 
       TDirectory * dir1 = (TDirectory*)file1->Get("treeDumper");
       TTree *tree1 = (TTree*) dir1->Get("tree1");
 
-	  m.Loop(dir1, tree1);
+      m.Loop(dir1, tree1);
       file1->Close();
    }
    m.hist_Scale();
    m.endJob();
    string   time_end = getTime();
    cout<<endl<<endl<<"time start : "<<time_start<<endl<<"time end   : "<<time_end<<endl;
-
+   
    return 0;
 }

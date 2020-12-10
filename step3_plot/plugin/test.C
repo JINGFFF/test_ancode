@@ -113,37 +113,37 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Double_t>    Mva_f  = {fReader, "Mva_f"};
    TTreeReaderValue<Int_t>    nlooseeles  = {fReader, "nlooseeles"};
    TTreeReaderValue<Int_t>    nloosemus  = {fReader, "nloosemus"};
-   TTreeReaderValue<Double_t>    genphoton_pt  = {fReader, "genphoton_pt"};
-   TTreeReaderValue<Double_t>    genphoton_eta  = {fReader, "genphoton_eta"};
-   TTreeReaderValue<Double_t>    genphoton_phi  = {fReader, "genphoton_phi"};
-   TTreeReaderValue<Double_t>    genmuon_pt  = {fReader, "genmuon_pt"};
-   TTreeReaderValue<Double_t>    genmuon_eta  = {fReader, "genmuon_eta"};
-   TTreeReaderValue<Double_t>    genmuon_phi  = {fReader, "genmuon_phi"};
-   TTreeReaderValue<Double_t>    genelectron_pt  = {fReader, "genelectron_pt"};
-   TTreeReaderValue<Double_t>    genelectron_eta  = {fReader, "genelectron_eta"};
-   TTreeReaderValue<Double_t>    genelectron_phi  = {fReader, "genelectron_phi"};
-   TTreeReaderValue<Double_t>    photon_pt  = {fReader, "photon_pt"};
-   TTreeReaderValue<Double_t>    photon_eta  = {fReader, "photon_eta"};
-   TTreeReaderValue<Double_t>    photon_phi  = {fReader, "photon_phi"};
-   TTreeReaderValue<Double_t>    photon_e  = {fReader, "photon_e"};
-   TTreeReaderValue<Double_t>    photonsc_eta  = {fReader, "photonsc_eta"};
-   TTreeReaderValue<Double_t>    photonsc_phi  = {fReader, "photonsc_phi"};
-   TTreeReaderValue<Bool_t>    photon_pev  = {fReader, "photon_pev"};
-   TTreeReaderValue<Bool_t>    photon_pevnew  = {fReader, "photon_pevnew"};
-   TTreeReaderValue<Bool_t>    photon_ppsv  = {fReader, "photon_ppsv"};
-   TTreeReaderValue<Bool_t>    photon_iseb  = {fReader, "photon_iseb"};
-   TTreeReaderValue<Bool_t>    photon_isee  = {fReader, "photon_isee"};
-   TTreeReaderValue<Double_t>    photon_hoe  = {fReader, "photon_hoe"};
-   TTreeReaderValue<Double_t>    photon_sieie  = {fReader, "photon_sieie"};
-   TTreeReaderValue<Double_t>    photon_sieie2  = {fReader, "photon_sieie2"};
-   TTreeReaderValue<Double_t>    photon_chiso  = {fReader, "photon_chiso"};
-   TTreeReaderValue<Double_t>    photon_nhiso  = {fReader, "photon_nhiso"};
-   TTreeReaderValue<Double_t>    photon_phoiso  = {fReader, "photon_phoiso"};
-   TTreeReaderValue<Int_t>    photon_istrue  = {fReader, "photon_istrue"};
-   TTreeReaderValue<Int_t>    photon_isprompt  = {fReader, "photon_isprompt"};
-   TTreeReaderValue<Double_t>    photon_drla  = {fReader, "photon_drla"};
-   TTreeReaderValue<Double_t>    photon_mla  = {fReader, "photon_mla"};
-   TTreeReaderValue<Double_t>    photon_mva  = {fReader, "photon_mva"};
+   TTreeReaderArray<Double_t>    genphoton_pt  = {fReader, "genphoton_pt"};
+   TTreeReaderArray<Double_t>    genphoton_eta  = {fReader, "genphoton_eta"};
+   TTreeReaderArray<Double_t>    genphoton_phi  = {fReader, "genphoton_phi"};
+   TTreeReaderArray<Double_t>    genmuon_pt  = {fReader, "genmuon_pt"};
+   TTreeReaderArray<Double_t>    genmuon_eta  = {fReader, "genmuon_eta"};
+   TTreeReaderArray<Double_t>    genmuon_phi  = {fReader, "genmuon_phi"};
+   TTreeReaderArray<Double_t>    genelectron_pt  = {fReader, "genelectron_pt"};
+   TTreeReaderArray<Double_t>    genelectron_eta  = {fReader, "genelectron_eta"};
+   TTreeReaderArray<Double_t>    genelectron_phi  = {fReader, "genelectron_phi"};
+   TTreeReaderArray<Double_t>    photon_pt  = {fReader, "photon_pt"};
+   TTreeReaderArray<Double_t>    photon_eta  = {fReader, "photon_eta"};
+   TTreeReaderArray<Double_t>    photon_phi  = {fReader, "photon_phi"};
+   TTreeReaderArray<Double_t>    photon_e  = {fReader, "photon_e"};
+   TTreeReaderArray<Double_t>    photonsc_eta  = {fReader, "photonsc_eta"};
+   TTreeReaderArray<Double_t>    photonsc_phi  = {fReader, "photonsc_phi"};
+   TTreeReaderArray<Bool_t>    photon_pev  = {fReader, "photon_pev"};
+   TTreeReaderArray<Bool_t>    photon_pevnew  = {fReader, "photon_pevnew"};
+   TTreeReaderArray<Bool_t>    photon_ppsv  = {fReader, "photon_ppsv"};
+   TTreeReaderArray<Bool_t>    photon_iseb  = {fReader, "photon_iseb"};
+   TTreeReaderArray<Bool_t>    photon_isee  = {fReader, "photon_isee"};
+   TTreeReaderArray<Double_t>    photon_hoe  = {fReader, "photon_hoe"};
+   TTreeReaderArray<Double_t>    photon_sieie  = {fReader, "photon_sieie"};
+   TTreeReaderArray<Double_t>    photon_sieie2  = {fReader, "photon_sieie2"};
+   TTreeReaderArray<Double_t>    photon_chiso  = {fReader, "photon_chiso"};
+   TTreeReaderArray<Double_t>    photon_nhiso  = {fReader, "photon_nhiso"};
+   TTreeReaderArray<Double_t>    photon_phoiso  = {fReader, "photon_phoiso"};
+   TTreeReaderArray<Int_t>    photon_istrue  = {fReader, "photon_istrue"};
+   TTreeReaderArray<Int_t>    photon_isprompt  = {fReader, "photon_isprompt"};
+   TTreeReaderArray<Double_t>    photon_drla  = {fReader, "photon_drla"};
+   TTreeReaderArray<Double_t>    photon_mla  = {fReader, "photon_mla"};
+   TTreeReaderArray<Double_t>    photon_mva  = {fReader, "photon_mva"};
    TTreeReaderValue<Bool_t>    passEleVeto  = {fReader, "passEleVeto"};
    TTreeReaderValue<Bool_t>    passEleVetonew  = {fReader, "passEleVetonew"};
    TTreeReaderValue<Bool_t>    passPixelSeedVeto  = {fReader, "passPixelSeedVeto"};
@@ -178,8 +178,8 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Int_t>    isTrue  = {fReader, "isTrue"};
    TTreeReaderValue<Int_t>    isprompt  = {fReader, "isprompt"};
    TTreeReaderValue<Int_t>    ispromptLep  = {fReader, "ispromptLep"};
-   TTreeReaderValue<Int_t>    ak4jet_hf  = {fReader, "ak4jet_hf"};
-   TTreeReaderValue<Int_t>    ak4jet_pf  = {fReader, "ak4jet_pf"};
+   TTreeReaderArray<Int_t>    ak4jet_hf  = {fReader, "ak4jet_hf"};
+   TTreeReaderArray<Int_t>    ak4jet_pf  = {fReader, "ak4jet_pf"};
    TTreeReaderValue<Int_t>    jet1hf  = {fReader, "jet1hf"};
    TTreeReaderValue<Int_t>    jet1pf  = {fReader, "jet1pf"};
    TTreeReaderValue<Int_t>    jet2hf  = {fReader, "jet2hf"};
@@ -228,28 +228,28 @@ void test::Loop(TDirectory * dir, TTree * tree)
    TTreeReaderValue<Int_t>    jet1pf_JER_down_f  = {fReader, "jet1pf_JER_down_f"};
    TTreeReaderValue<Int_t>    jet2hf_JER_down_f  = {fReader, "jet2hf_JER_down_f"};
    TTreeReaderValue<Int_t>    jet2pf_JER_down_f  = {fReader, "jet2pf_JER_down_f"};
-   TTreeReaderValue<Double_t>    ak4jet_pt  = {fReader, "ak4jet_pt"};
-   TTreeReaderValue<Double_t>    ak4jet_eta  = {fReader, "ak4jet_eta"};
-   TTreeReaderValue<Double_t>    ak4jet_phi  = {fReader, "ak4jet_phi"};
-   TTreeReaderValue<Double_t>    ak4jet_e  = {fReader, "ak4jet_e"};
-   TTreeReaderValue<Double_t>    ak4jet_csv  = {fReader, "ak4jet_csv"};
-   TTreeReaderValue<Double_t>    ak4jet_deepcsv_probb  = {fReader, "ak4jet_deepcsv_probb"};
-   TTreeReaderValue<Double_t>    ak4jet_deepcsv_probbb  = {fReader, "ak4jet_deepcsv_probbb"};
-   TTreeReaderValue<Double_t>    ak4jet_deepcsv_probc  = {fReader, "ak4jet_deepcsv_probc"};
-   TTreeReaderValue<Double_t>    ak4jet_deepcsv_probcc  = {fReader, "ak4jet_deepcsv_probcc"};
-   TTreeReaderValue<Double_t>    ak4jet_icsv  = {fReader, "ak4jet_icsv"};
-   TTreeReaderValue<Double_t>    ak4jet_pt_old  = {fReader, "ak4jet_pt_old"};
-   TTreeReaderValue<Double_t>    ak4jet_pt_new  = {fReader, "ak4jet_pt_new"};
-   TTreeReaderValue<Double_t>    ak4jet_pt_JEC_up  = {fReader, "ak4jet_pt_JEC_up"};
-   TTreeReaderValue<Double_t>    ak4jet_pt_JEC_down  = {fReader, "ak4jet_pt_JEC_down"};
-   TTreeReaderValue<Double_t>    ak4jet_pt_JER_up  = {fReader, "ak4jet_pt_JER_up"};
-   TTreeReaderValue<Double_t>    ak4jet_pt_JER_down  = {fReader, "ak4jet_pt_JER_down"};
-   TTreeReaderValue<Double_t>    ak4jet_e_old  = {fReader, "ak4jet_e_old"};
-   TTreeReaderValue<Double_t>    ak4jet_e_new  = {fReader, "ak4jet_e_new"};
-   TTreeReaderValue<Double_t>    ak4jet_e_JEC_up  = {fReader, "ak4jet_e_JEC_up"};
-   TTreeReaderValue<Double_t>    ak4jet_e_JEC_down  = {fReader, "ak4jet_e_JEC_down"};
-   TTreeReaderValue<Double_t>    ak4jet_e_JER_up  = {fReader, "ak4jet_e_JER_up"};
-   TTreeReaderValue<Double_t>    ak4jet_e_JER_down  = {fReader, "ak4jet_e_JER_down"};
+   TTreeReaderArray<Double_t>    ak4jet_pt  = {fReader, "ak4jet_pt"};
+   TTreeReaderArray<Double_t>    ak4jet_eta  = {fReader, "ak4jet_eta"};
+   TTreeReaderArray<Double_t>    ak4jet_phi  = {fReader, "ak4jet_phi"};
+   TTreeReaderArray<Double_t>    ak4jet_e  = {fReader, "ak4jet_e"};
+   TTreeReaderArray<Double_t>    ak4jet_csv  = {fReader, "ak4jet_csv"};
+   TTreeReaderArray<Double_t>    ak4jet_deepcsv_probb  = {fReader, "ak4jet_deepcsv_probb"};
+   TTreeReaderArray<Double_t>    ak4jet_deepcsv_probbb  = {fReader, "ak4jet_deepcsv_probbb"};
+   TTreeReaderArray<Double_t>    ak4jet_deepcsv_probc  = {fReader, "ak4jet_deepcsv_probc"};
+   TTreeReaderArray<Double_t>    ak4jet_deepcsv_probcc  = {fReader, "ak4jet_deepcsv_probcc"};
+   TTreeReaderArray<Double_t>    ak4jet_icsv  = {fReader, "ak4jet_icsv"};
+   TTreeReaderArray<Double_t>    ak4jet_pt_old  = {fReader, "ak4jet_pt_old"};
+   TTreeReaderArray<Double_t>    ak4jet_pt_new  = {fReader, "ak4jet_pt_new"};
+   TTreeReaderArray<Double_t>    ak4jet_pt_JEC_up  = {fReader, "ak4jet_pt_JEC_up"};
+   TTreeReaderArray<Double_t>    ak4jet_pt_JEC_down  = {fReader, "ak4jet_pt_JEC_down"};
+   TTreeReaderArray<Double_t>    ak4jet_pt_JER_up  = {fReader, "ak4jet_pt_JER_up"};
+   TTreeReaderArray<Double_t>    ak4jet_pt_JER_down  = {fReader, "ak4jet_pt_JER_down"};
+   TTreeReaderArray<Double_t>    ak4jet_e_old  = {fReader, "ak4jet_e_old"};
+   TTreeReaderArray<Double_t>    ak4jet_e_new  = {fReader, "ak4jet_e_new"};
+   TTreeReaderArray<Double_t>    ak4jet_e_JEC_up  = {fReader, "ak4jet_e_JEC_up"};
+   TTreeReaderArray<Double_t>    ak4jet_e_JEC_down  = {fReader, "ak4jet_e_JEC_down"};
+   TTreeReaderArray<Double_t>    ak4jet_e_JER_up  = {fReader, "ak4jet_e_JER_up"};
+   TTreeReaderArray<Double_t>    ak4jet_e_JER_down  = {fReader, "ak4jet_e_JER_down"};
    TTreeReaderValue<Double_t>    jet1pt  = {fReader, "jet1pt"};
    TTreeReaderValue<Double_t>    jet1pt_new  = {fReader, "jet1pt_new"};
    TTreeReaderValue<Double_t>    jet1pt_JEC_up  = {fReader, "jet1pt_JEC_up"};
@@ -657,7 +657,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
          fill_jet2pt              = (*jet2pt_new);
          fill_jet2eta             = (*jet2eta_new);
          fill_lep                 = (*lep);
-         fill_HLT_muon            = (*HLT_Mu3);
+         fill_HLT_muon            = (*HLT_Mu2);
          fill_HLT_electron        = (*HLT_Ele2);
          fill_ptlep1              = (*ptlep1);
          fill_etalep1             = (*etalep1);
@@ -696,7 +696,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
          fill_jet2pt              = (*jet2pt_new_f);
          fill_jet2eta             = (*jet2eta_new_f);
          fill_lep                 = (*lep);
-         fill_HLT_muon            = (*HLT_Mu3);
+         fill_HLT_muon            = (*HLT_Mu2);
          fill_HLT_electron        = (*HLT_Ele2);
          fill_ptlep1              = (*ptlep1);
          fill_etalep1             = (*etalep1);
@@ -730,7 +730,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
       //if(fabs(fill_jet2eta)>2.65 && fabs(fill_jet2eta)<3.17) continue;
 
 
-      muon_cut = fill_HLT_muon==1
+      muon_cut = (*_passecalBadCalibFilterUpdate) && fill_HLT_muon==1
                  && fill_Mjj>200. && fill_Mjj<400.
                  && fill_jet1pt>40. && fabs(fill_jet1eta)<4.7 && fill_jet2pt>30. && fabs(fill_jet2eta)<4.7
                  && abs(fill_lep)==13 && fill_ptlep1>30. && fabs(fill_etalep1)<2.4
@@ -741,7 +741,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
                  && fabs(fill_j1metPhi)>0.5 && fabs(fill_j2metPhi)>0.5
                  && fill_jet1deepcsv < cut_value[1] && fill_jet2deepcsv < cut_value[1];
 
-      electron_cut = fill_HLT_electron==1
+      electron_cut = (*_passecalBadCalibFilterUpdate) &&fill_HLT_electron==1
                  && fill_Mjj>200. && fill_Mjj<400.
                  && fill_jet1pt>40. && fabs(fill_jet1eta)<4.7 && fill_jet2pt>30. && fabs(fill_jet2eta)<4.7
                  && abs(fill_lep)==11 && fill_ptlep1>30. && fabs(fill_etalep1)<2.5
@@ -851,13 +851,13 @@ void test::Loop(TDirectory * dir, TTree * tree)
 
       // data driven weight
       double fake_lepton_weight = 1, barrel_fake_photon_weight = 1, endcap_fake_photon_weight = 1;
-/*
+
       if(abs(*lep) == 13)fake_lepton_weight = hist_fake_muon_weight->GetBinContent(hist_fake_muon_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_muon_weight->GetYaxis()->FindBin(ptl1));
       if(abs(*lep) == 11)fake_lepton_weight = hist_fake_electron_weight->GetBinContent(hist_fake_electron_weight->GetXaxis()->FindBin(fabs(fill_etalep1)),hist_fake_electron_weight->GetYaxis()->FindBin(ptl1));
 
       barrel_fake_photon_weight = hist_barrel_fake_photon_weight->GetBinContent(hist_barrel_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); 
       endcap_fake_photon_weight = hist_endcap_fake_photon_weight->GetBinContent(hist_endcap_fake_photon_weight->GetXaxis()->FindBin(fill_photonet)); 
-*/      
+      
       double weight = 1;
       // fill histogram
       // barrel

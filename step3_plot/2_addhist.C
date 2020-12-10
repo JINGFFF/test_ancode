@@ -57,34 +57,50 @@ void addhist(TString year, TString channel, TString indir, TString outdir, int a
 
    //file prepare
    //MC: ZA
-   TFile * za1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ZG.root");
+   TFile * za1;
+   if(addZA==1) za1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ZG.root");
    //MC: VV
-   TFile * ww1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WW.root");
-   TFile * wz1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WZ.root");
-   TFile * zz1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ZZ.root");
+   TFile * ww1;
+   if( addWW==1) ww1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WW.root");
+   TFile * wz1;
+   if( addWZ==1) wz1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WZ.root");
+   TFile * zz1;
+   if( addZZ==1) zz1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ZZ.root");
 
    //MC: TTA
-   TFile * tta1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_TTG.root");
+   TFile * tta1;
+   if( addTTA==1) tta1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_TTG.root");
    //MC: STop
-   TFile * st_s1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_s.root");
-   TFile * st_t1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_t.root");
-   TFile * st_tbar1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_tbar.root");
-   TFile * st_tw_anti_top1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_tbarW.root");
-   TFile * st_tw_top1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_tW.root");
+   TFile * st_s1;
+   if( addST_s==1) st_s1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_s.root");
+   TFile * st_t1;
+   if( addST_t==1) st_t1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_t.root");
+   TFile * st_tbar1;
+   if( addST_tbar==1) st_tbar1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_tbar.root");
+   TFile * st_tw_anti_top1;
+   if( addST_tw_anti_top==1) st_tw_anti_top1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_tbarW.root");
+   TFile * st_tw_top1;
+   if( addST_tw_top==1) st_tw_top1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_ST_tW.root");
 
    //MC: WGJJ (signal)
-   TFile * wgjj1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WGJJ.root");
+   TFile * wgjj1;
+   if( addST_WGJJ==1) wgjj1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WGJJ.root");
    //MC: WGJets
-   TFile * wgjets1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WGJets.root");
+   TFile * wgjets1;
+   if( addWGJets==1) wgjets1 = TFile::Open(indir + "/" + year + "_" + channel + "_mc_medium_btag_WGJets.root");
 
    //DATA
-   TFile * data1 = TFile::Open(indir + "/" + year + "_" + channel + "_data_medium_btag_" + dataset_name + ".root");
+   TFile * data1;
+   if( addDATA==1) data1 = TFile::Open(indir + "/" + year + "_" + channel + "_data_medium_btag_" + dataset_name + ".root");
    //fake photon data 
-   TFile * data2 = TFile::Open(indir + "/" + year + "_" + channel + "_fakephoton_medium_btag_" + dataset_name + ".root");
+   TFile * data2;
+   if( addFakePhoton==1) data2 = TFile::Open(indir + "/" + year + "_" + channel + "_fakephoton_medium_btag_" + dataset_name + ".root");
    //fake lepton data
-   TFile * data3 = TFile::Open(indir + "/" + year + "_" + channel + "_fakelepton_medium_btag_" + dataset_name + ".root");
+   TFile * data3;
+   if( addFakeLepton==1) data3 = TFile::Open(indir + "/" + year + "_" + channel + "_fakelepton_medium_btag_" + dataset_name + ".root");
    //double fake data
-   TFile * data4 = TFile::Open(indir + "/" + year + "_" + channel + "_doublefake_medium_btag_" + dataset_name + ".root");
+   TFile * data4;
+   if( addDoubleFake==1) data4 = TFile::Open(indir + "/" + year + "_" + channel + "_doublefake_medium_btag_" + dataset_name + ".root");
 
    //output file to save result (a lot of canvas)
    TFile* output = new TFile(outdir + "/result.root","RECREATE");

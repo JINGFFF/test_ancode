@@ -1,19 +1,27 @@
 #### step 1 : fake lepton estimation
-*    *g++ -o make_hist `root-config --cflags --glibs` 1_preprocess_fake_lepton.C*
+*    g++ -o make_hist `root-config --cflags --glibs` 1_preprocess_fake_lepton.C
     
-     *./make_hist filelist_dir/loose_DY.txt out 2018 muon mc DY loose*
+     ./make_hist filelist_dir/loose_DY.txt out 2018 muon mc DY loose
 
-*    *g++ -o cal_fakerate `root-config --cflags --glibs` 2_calculate_fake_lepton_rate.C*
+*    g++ -o cal_fakerate `root-config --cflags --glibs` 2_calculate_fake_lepton_rate.C
 
      ./cal_fakerate 2018 muon 1_out1 2_out_1
 #### step 2 : fake photom estimation
 *    g++ -o make_hist `root-config --cflags --glibs` 1_make_fake_photon_template.C
 
      ./make_hist filelist_dir/tight_lepton.txt 1_out_1 2018 data all data singlelepton medium 4 10
+
+*    g++ -o tf_ratio `root-config --cflags --glibs` 1_tf_ratio.C
+
+     ./tf_ratio filelist_dir/tight_lepton.txt 1_out_1 2018 data all data singlelepton medium 4 10
 #### step 3 : make plot for signal/control region
 *    g++ -o make_hist `root-config --cflags --glibs` 1_make_histogram.C
 
      ./make_hist filelist_dir/tight_muon.txt 1_out_1 2018 muon data SingleMuon medium
+
+*    g++ -o plot `root-config --cflags --glibs` 2_addhist.C
+
+     ./plot 1_out_control_region_1 2_out_control_region_1 2018 muon
 #### step 4 : aQGC study
 *    g++ -o fit_ratio `root-config --cflags --glibs` 1_fit_ratio.C
 
