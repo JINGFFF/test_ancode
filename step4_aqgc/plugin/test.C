@@ -647,7 +647,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
          fill_jet2pt              = (*jet2pt_new);
          fill_jet2eta             = (*jet2eta_new);
          fill_lep                 = (*lep);
-         fill_HLT_muon            = (*HLT_Mu3);
+         fill_HLT_muon            = (*HLT_Mu2);
          fill_HLT_electron        = (*HLT_Ele2);
          fill_ptlep1              = (*ptlep1);
          fill_etalep1             = (*etalep1);
@@ -686,7 +686,7 @@ void test::Loop(TDirectory * dir, TTree * tree)
          fill_jet2pt              = (*jet2pt_new_f);
          fill_jet2eta             = (*jet2eta_new_f);
          fill_lep                 = (*lep);
-         fill_HLT_muon            = (*HLT_Mu3);
+         fill_HLT_muon            = (*HLT_Mu2);
          fill_HLT_electron        = (*HLT_Ele2);
          fill_ptlep1              = (*ptlep1);
          fill_etalep1             = (*etalep1);

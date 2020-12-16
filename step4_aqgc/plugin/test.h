@@ -295,18 +295,18 @@ void test::Init()
    // Set branch addresses and branch pointers
    //if (!f) return;
    //fCurrent = -1;
-/*
+
    // fake lepton weight
-   file_fake_muon_weight = TFile::Open("filelist_dir/data_driven_weight/muon_fakerate.root");
-   file_fake_electron_weight = TFile::Open("filelist_dir/data_driven_weight/electron_fakerate.root");
+   file_fake_muon_weight = TFile::Open("./scalef/data_driven_weight/muon_fakerate.root");
+   file_fake_electron_weight = TFile::Open("./scalef/data_driven_weight/electron_fakerate.root");
    if(m_channel == "muon")     hist_fake_lepton_weight = (TH2D*)file_fake_muon_weight->Get("weight");
    if(m_channel == "electron") hist_fake_lepton_weight = (TH2D*)file_fake_electron_weight->Get("weight");
 
    // fake photon weight
-   file_fake_photon_weight = TFile::Open("filelist_dir/data_driven_weight/fake_photon_weight.root");
+   file_fake_photon_weight = TFile::Open("./scalef/data_driven_weight/fake_photon_weight.root");
    hist_barrel_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("barrel_fake_photon_weight");
    hist_endcap_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("endcap_fake_photon_weight");
-*/
+
    // pile up weight
    pu_weight_input = new TFile ("./scalef/puweight_2018.root");
    h_pu_weight = (TH1D*)pu_weight_input->Get("h2");
