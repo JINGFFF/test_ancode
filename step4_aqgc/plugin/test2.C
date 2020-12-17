@@ -814,22 +814,24 @@ void test::Loop(TDirectory * dir, TTree * tree)
             photon_ID_low_SF = get_photon_ID(*photonsceta, *photonet, h_photon_ID_weight, "low");
          }
          // add factor for muon
+         double bf=0.5497;   double gh=0.4503;
          if(abs(*lep)==13)
          {
             //------muon trigger scalefactor
-            muon_HLT_SF = get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_weight, " ");
-            muon_HLT_up_SF = get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_weight, "up");
-            muon_HLT_low_SF = get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_weight, "low");
+            muon_HLT_SF = bf*get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_B-F_weight, " ") + gh*get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_G-H_weight, " ");
+            muon_HLT_up_SF = bf*get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_B-F_weight, "up") + gh*get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_G-H_weight, "up");
+            muon_HLT_low_SF = bf*get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_B-F_weight, "low") + gh*get_muon_HLT(*etalep1, *ptlep1, h_muon_HLT_G-H_weight, "low");
             //------muon tight ID  scalefactor
-            muon_ID_SF = get_muon_ID(*etalep1, *ptlep1, h_muon_ID_weight, " ");
-            muon_ID_up_SF = get_muon_ID(*etalep1, *ptlep1, h_muon_ID_weight, "up");
-            muon_ID_low_SF = get_muon_ID(*etalep1, *ptlep1, h_muon_ID_weight, "low");
+            muon_ID_SF = bf*get_muon_ID(*etalep1, *ptlep1, h_muon_ID_B-F_weight, " ") + gh*get_muon_ID(*etalep1, *ptlep1, h_muon_ID_G-H_weight, " ");
+            muon_ID_up_SF = bf*get_muon_ID(*etalep1, *ptlep1, h_muon_ID_B-F_weight, "up") + gh*get_muon_ID(*etalep1, *ptlep1, h_muon_ID_G-H_weight, "up");
+            muon_ID_low_SF = bf*get_muon_ID(*etalep1, *ptlep1, h_muon_ID_B-F_weight, "low") + gh*get_muon_ID(*etalep1, *ptlep1, h_muon_ID_G-H_weight, "low");
             //------muon tight ISO scalefactor
-            muon_iso_SF = get_muon_iso(*etalep1, *ptlep1, h_muon_iso_weight, " ");
-            muon_iso_up_SF = get_muon_iso(*etalep1, *ptlep1, h_muon_iso_weight, "up");
-            muon_iso_low_SF = get_muon_iso(*etalep1, *ptlep1, h_muon_iso_weight, "low");
+            muon_iso_SF = bf*get_muon_iso(*etalep1, *ptlep1, h_muon_iso_B-F_weight, " ") + gh*get_muon_iso(*etalep1, *ptlep1, h_muon_iso_G-H_weight, " ");
+            muon_iso_up_SF = bf*get_muon_iso(*etalep1, *ptlep1, h_muon_iso_B-F_weight, "up") + gh*get_muon_iso(*etalep1, *ptlep1, h_muon_iso_G-H_weight, "up");
+            muon_iso_low_SF = bf*get_muon_iso(*etalep1, *ptlep1, h_muon_iso_B-F_weight, "low") + gh*get_muon_iso(*etalep1, *ptlep1, h_muon_iso_G-H_weight, "low");
          }
-         // add factor for electron
+
+		 // add factor for electron
          if(abs(*lep)==11)
          {
             //------electron reco scalefactor

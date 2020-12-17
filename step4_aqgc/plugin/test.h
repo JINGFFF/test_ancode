@@ -72,17 +72,30 @@ public :
    TH2D* h_photon_ID_weight;
 
    // muon HLT weight
-   TFile * muon_HLT_weight_input;
-   TDirectory * muon_HLT_weight_dir;
-   TH2D* h_muon_HLT_weight;
+   TFile * muon_HLT_weight_B-F_input;
+   TDirectory * muon_HLT_weight_B-F_dir;
+   TH2D* h_muon_HLT_B-F_weight;
 
    // muon ID weight
-   TFile * muon_ID_weight_input;
-   TH2D* h_muon_ID_weight;
+   TFile * muon_ID_weight_B-F_input;
+   TH2D* h_muon_ID_B-F_weight;
 
    // muon iso scale
-   TFile * muon_iso_weight_input;
-   TH2D* h_muon_iso_weight;
+   TFile * muon_iso_weight_B-F_input;
+   TH2D* h_muon_iso_B-F_weight;
+
+   // muon HLT weight
+   TFile * muon_HLT_weight_G-H_input;
+   TDirectory * muon_HLT_weight_G-H_dir;
+   TH2D* h_muon_HLT_G-H_weight;
+
+   // muon ID weight
+   TFile * muon_ID_weight_G-H_input;
+   TH2D* h_muon_ID_G-H_weight;
+
+   // muon iso scale
+   TFile * muon_iso_weight_G-H_input;
+   TH2D* h_muon_iso_G-H_weight;
 
    // electron reco scale
    TFile * electron_reco_weight_input;
@@ -177,26 +190,27 @@ public :
 
 
    // btag eff and scale function
-   Double_t eff_b_jet_tight[10]  =  {0.375338, 0.493779, 0.553314, 0.575056, 0.579706, 0.563553, 0.491523, 0.327807, 0.105522, 0.0292929};
-   Double_t eff_b_jet_medium[10] = {0.565127, 0.663282, 0.714194, 0.737916, 0.750325, 0.745599, 0.701239, 0.590619, 0.390365, 0.216667};
-   Double_t eff_b_jet_loose[10] =  {0.753404, 0.813243, 0.850107, 0.87129, 0.88806, 0.89424, 0.881965, 0.846197, 0.798682, 0.70404};
    TString fuction_b_jet_tight[19] ;
    TString fuction_b_jet_medium[19];
    TString fuction_b_jet_loose[19];
 
-   Double_t eff_c_jet_tight[10]  =  {0.0178263, 0.0219464, 0.0242307, 0.0269731, 0.0299322, 0.0316588, 0.0287384, 0.0180558, 0.00498598, 0.00366972};
-   Double_t eff_c_jet_medium[10] = {0.120439, 0.128175, 0.130494, 0.13781, 0.14765, 0.154195, 0.146221, 0.120963, 0.0666874, 0.0311927};
-   Double_t eff_c_jet_loose[10] =  {0.392685, 0.415126, 0.42917, 0.445494, 0.462387, 0.473021, 0.461477, 0.451609, 0.421237, 0.348624};
    TString fuction_c_jet_tight[19];
    TString fuction_c_jet_medium[19];
    TString fuction_c_jet_loose[19];
 
-   Double_t eff_l_jet_tight[10]  =  {0.00115722, 0.000821689, 0.000900955, 0.00110315, 0.0014241, 0.00181297, 0.0020553, 0.00198708, 0.000801618, 0};
-   Double_t eff_l_jet_medium[10] = {0.00904002, 0.00806116, 0.00810405, 0.00924306, 0.0113922, 0.0137251, 0.0159489, 0.0189461, 0.0130992, 0.004265};
-   Double_t eff_l_jet_loose[10] =  {0.125149, 0.0924003, 0.0847756, 0.0946918, 0.113998, 0.134914, 0.15921, 0.19733, 0.229773, 0.206426};
    TString fuction_l_jet_tight[3];
    TString fuction_l_jet_medium[3];
    TString fuction_l_jet_loose[3];
+
+Double_t eff_b_jet_tight[10] ={ 0.320501, 0.438741, 0.494037, 0.516037, 0.521717, 0.511363, 0.463285, 0.380385, 0.268077, 0.22774};
+Double_t eff_b_jet_medium[10] ={ 0.494944, 0.604301, 0.655748, 0.680486, 0.693248, 0.693765, 0.667501, 0.616062, 0.535007, 0.505137};
+Double_t eff_b_jet_loose[10] ={ 0.686011, 0.764027, 0.805729, 0.831279, 0.849252, 0.860238, 0.858505, 0.849354, 0.843092, 0.849315};
+Double_t eff_c_jet_tight[10] ={ 0.0183726, 0.0223202, 0.0220486, 0.0226769, 0.024171, 0.0263377, 0.0265894, 0.0277639, 0.032798, 0.0315315};
+Double_t eff_c_jet_medium[10] ={ 0.106603, 0.119726, 0.114486, 0.114447, 0.118432, 0.12676, 0.128575, 0.138768, 0.151776, 0.189189};
+Double_t eff_c_jet_loose[10] ={ 0.354013, 0.383178, 0.384509, 0.389559, 0.39991, 0.416174, 0.426847, 0.467101, 0.51934, 0.617117};
+Double_t eff_l_jet_tight[10] ={ 0.00116083, 0.00108697, 0.0010221, 0.00107856, 0.00123402, 0.00159878, 0.00193249, 0.00285934, 0.00374868, 0.00664452};
+Double_t eff_l_jet_medium[10] ={ 0.0130506, 0.0120923, 0.00997784, 0.00970286, 0.0105707, 0.0128526, 0.0161229, 0.0244205, 0.0325238, 0.0340532};
+Double_t eff_l_jet_loose[10] ={ 0.113448, 0.109686, 0.0945654, 0.0941139, 0.102728, 0.122753, 0.15118, 0.205856, 0.277138, 0.35299};
 
 
    /// define histogram for fake lepton
@@ -308,36 +322,49 @@ void test::Init()
    hist_endcap_fake_photon_weight = (TH1F*)file_fake_photon_weight->Get("endcap_fake_photon_weight");
 
    // pile up weight
-   pu_weight_input = new TFile ("./scalef/puweight_2018.root");
+   pu_weight_input = new TFile ("./scalef/puweight_2016.root");
    h_pu_weight = (TH1D*)pu_weight_input->Get("h2");
 
    // photon medium ID weight
-   photon_ID_weight_input = new TFile ("./scalef/photon/2018_PhotonsMedium.root");
+   photon_ID_weight_input = new TFile ("./scalef/photon/Fall17V2_2016_Medium_photons.root");
    h_photon_ID_weight = (TH2D*)photon_ID_weight_input->Get("EGamma_SF2D");
 
    // muon HLT weight
-   muon_HLT_weight_input = new TFile ("./scalef/muon/EfficienciesAndSF_2018Data_AfterMuonHLTUpdate.root");
-   muon_HLT_weight_dir  = (TDirectory*)muon_HLT_weight_input->Get("IsoMu24_PtEtaBins");
-   h_muon_HLT_weight = (TH2D*)muon_HLT_weight_dir->Get("abseta_pt_ratio");
+   muon_HLT_weight_B-F_input = new TFile ("./scalef/muon/EfficienciesAndSF_RunBtoF.root");
+   muon_HLT_weight_G-H_input = new TFile ("./scalef/muon/EfficienciesAndSF_Period4.root");
+
+   muon_HLT_weight_B-F_dir  = (TDirectory*)muon_HLT_weight_G-H_input->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins");
+   muon_HLT_weight_G-H_dir  = (TDirectory*)muon_HLT_weight_G-H_input->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins");
+
+   h_muon_HLT_B-F_weight = (TH2D*)muon_HLT_weight_B-F_dir->Get("abseta_pt_ratio");
+   h_muon_HLT_G-H_weight = (TH2D*)muon_HLT_weight_G-H_dir->Get("abseta_pt_ratio");
+
 
    // muon ID weight
-   muon_ID_weight_input = new TFile ("./scalef/muon/RunABCD_SF_ID.root");
-   h_muon_ID_weight = (TH2D*)muon_ID_weight_input->Get("NUM_TightID_DEN_TrackerMuons_pt_abseta");
+   muon_ID_weight_B-F_input = new TFile ("./scalef/muon/RunBCDEF_SF_ID.root");
+   h_muon_ID_B_F-weight = (TH2D*)muon_ID_weight_B-F_input->Get("NUM_TightID_DEN_genTracks_eta_pt");
+
+   muon_ID_weight_G-H_input = new TFile ("./scalef/muon/RunGH_SF_ID.root");
+   h_muon_ID_G_H-weight = (TH2D*)muon_ID_weight_G-H_input->Get("NUM_TightID_DEN_genTracks_eta_pt");
+
 
    // muon iso weight
-   muon_iso_weight_input = new TFile ("./scalef/muon/RunABCD_SF_ISO.root");
-   h_muon_iso_weight = (TH2D*)muon_iso_weight_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_pt_abseta");
+   muon_iso_weight_B-F_input = new TFile ("./scalef/muon/RunBCDEF_SF_ID.root");
+   h_muon_iso_B-F_weight = (TH2D*)muon_iso_weight_B-F_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+
+   muon_iso_weight_G-H_input = new TFile ("./scalef/muon/RunGH_SF_ID.root");
+   h_muon_iso_G-H_weight = (TH2D*)muon_iso_weight_G-H_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
 
    // electron reco weight
-   electron_reco_weight_input = new TFile ("./scalef/electron/EGM2D_electron_Reco.root");
+   electron_reco_weight_input = new TFile ("./scalef/electron/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");
    h_electron_reco_weight = (TH2D*)electron_reco_weight_input->Get("EGamma_SF2D");
 
    // electron ID weight
-   electron_ID_weight_input = new TFile ("./scalef/electron/2018_ElectronTight.root");
+   electron_ID_weight_input = new TFile ("./scalef/electron/2016LegacyReReco_ElectronTight_Fall17V2.root");
    h_electron_ID_weight = (TH2D*)electron_ID_weight_input->Get("EGamma_SF2D");
 
    // electron HLT weight
-   electron_HLT_weight_input = new TFile ("./scalef/electron/2018_egamma_hlt_sf.root");
+   electron_HLT_weight_input = new TFile ("./scalef/electron/egammaEffi.txt_EGM2D.root");
    h_electron_HLT_weight = (TH2D*)electron_HLT_weight_input->Get("EGamma_SF2D");
 
 /*
@@ -396,7 +423,7 @@ Bool_t test::Notify()
 void test::read_csv_info()
 {
    cout<<"start load Btag info!"<<endl;
-   ifstream fin("./scalef/jet/DeepCSV_102XSF_WP_V1.csv");
+   ifstream fin("./scalef/jet/DeepCSV_2016LegacySF_WP_V1.csv");
    string line_info,input_result;
    vector<string> vectorString;
    if(fin) 
