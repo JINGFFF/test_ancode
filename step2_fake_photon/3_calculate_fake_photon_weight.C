@@ -26,8 +26,8 @@ void fake_photon_weight(TString year, TString input_fraction, TString input_pt_d
    //TFile* output = new TFile("fake_photon_weight.root","RECREATE");
 
    TFile * fraction_file = TFile::Open(input_fraction + "/result_.root");
-   TFile * fake_input = TFile::Open(input_pt_distribution + "/" + year + "_medium_btag_fake.root");
-   TFile * data_input = TFile::Open(input_pt_distribution + "/" + year + "_medium_btag_data.root");
+   TFile * fake_input = TFile::Open(input_pt_distribution + "/tf_" + year + "_medium_btag_fake.root");
+   TFile * data_input = TFile::Open(input_pt_distribution + "/tf_" + year + "_medium_btag_data.root");
 cout<<"ok1"<<endl;
    TH1F* fraction_barrel = (TH1F*)fraction_file->Get("barrel_fraction");
    TH1F* fraction_endcap = (TH1F*)fraction_file->Get("endcap_fraction");
