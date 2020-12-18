@@ -58,30 +58,30 @@ public :
    TH2D* h_photon_ID_weight;
 
    // muon HLT weight
-   TFile * muon_HLT_weight_B-F_input;
-   TDirectory * muon_HLT_weight_B-F_dir;
-   TH2D* h_muon_HLT_B-F_weight;
+   TFile * muon_HLT_weight_B_F_input;
+   TDirectory * muon_HLT_weight_B_F_dir;
+   TH2D* h_muon_HLT_B_F_weight;
 
    // muon ID weight
-   TFile * muon_ID_weight_B-F_input;
-   TH2D* h_muon_ID_B-F_weight;
+   TFile * muon_ID_weight_B_F_input;
+   TH2D* h_muon_ID_B_F_weight;
 
    // muon iso scale
-   TFile * muon_iso_weight_B-F_input;
-   TH2D* h_muon_iso_B-F_weight;
+   TFile * muon_iso_weight_B_F_input;
+   TH2D* h_muon_iso_B_F_weight;
 
    // muon HLT weight
-   TFile * muon_HLT_weight_G-H_input;
-   TDirectory * muon_HLT_weight_G-H_dir;
-   TH2D* h_muon_HLT_G-H_weight;
+   TFile * muon_HLT_weight_G_H_input;
+   TDirectory * muon_HLT_weight_G_H_dir;
+   TH2D* h_muon_HLT_G_H_weight;
 
    // muon ID weight
-   TFile * muon_ID_weight_G-H_input;
-   TH2D* h_muon_ID_G-H_weight;
+   TFile * muon_ID_weight_G_H_input;
+   TH2D* h_muon_ID_G_H_weight;
 
    // muon iso scale
-   TFile * muon_iso_weight_G-H_input;
-   TH2D* h_muon_iso_G-H_weight;
+   TFile * muon_iso_weight_G_H_input;
+   TH2D* h_muon_iso_G_H_weight;
 
    // electron reco scale
    TFile * electron_reco_weight_input;
@@ -242,30 +242,30 @@ void test::Init()
    h_photon_ID_weight = (TH2D*)photon_ID_weight_input->Get("EGamma_SF2D");
 
    // muon HLT weight
-   muon_HLT_weight_B-F_input = new TFile ("./scalef/muon/EfficienciesAndSF_RunBtoF.root");
-   muon_HLT_weight_G-H_input = new TFile ("./scalef/muon/EfficienciesAndSF_Period4.root");
+   muon_HLT_weight_B_F_input = new TFile ("./scalef/muon/EfficienciesAndSF_RunBtoF.root");
+   muon_HLT_weight_G_H_input = new TFile ("./scalef/muon/EfficienciesAndSF_Period4.root");
 
-   muon_HLT_weight_B-F_dir  = (TDirectory*)muon_HLT_weight_G-H_input->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins");
-   muon_HLT_weight_G-H_dir  = (TDirectory*)muon_HLT_weight_G-H_input->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins");
+   muon_HLT_weight_B_F_dir  = (TDirectory*)muon_HLT_weight_G_H_input->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins");
+   muon_HLT_weight_G_H_dir  = (TDirectory*)muon_HLT_weight_G_H_input->Get("IsoMu24_OR_IsoTkMu24_PtEtaBins");
 
-   h_muon_HLT_B-F_weight = (TH2D*)muon_HLT_weight_B-F_dir->Get("abseta_pt_ratio");
-   h_muon_HLT_G-H_weight = (TH2D*)muon_HLT_weight_G-H_dir->Get("abseta_pt_ratio");
+   h_muon_HLT_B_F_weight = (TH2D*)muon_HLT_weight_B_F_dir->Get("abseta_pt_ratio");
+   h_muon_HLT_G_H_weight = (TH2D*)muon_HLT_weight_G_H_dir->Get("abseta_pt_ratio");
 
 
    // muon ID weight
-   muon_ID_weight_B-F_input = new TFile ("./scalef/muon/RunBCDEF_SF_ID.root");
-   h_muon_ID_B_F-weight = (TH2D*)muon_ID_weight_B-F_input->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   muon_ID_weight_B_F_input = new TFile ("./scalef/muon/RunBCDEF_SF_ID.root");
+   h_muon_ID_B_F_weight = (TH2D*)muon_ID_weight_B_F_input->Get("NUM_TightID_DEN_genTracks_eta_pt");
 
-   muon_ID_weight_G-H_input = new TFile ("./scalef/muon/RunGH_SF_ID.root");
-   h_muon_ID_G_H-weight = (TH2D*)muon_ID_weight_G-H_input->Get("NUM_TightID_DEN_genTracks_eta_pt");
+   muon_ID_weight_G_H_input = new TFile ("./scalef/muon/RunGH_SF_ID.root");
+   h_muon_ID_G_H_weight = (TH2D*)muon_ID_weight_G_H_input->Get("NUM_TightID_DEN_genTracks_eta_pt");
 
 
    // muon iso weight
-   muon_iso_weight_B-F_input = new TFile ("./scalef/muon/RunBCDEF_SF_ID.root");
-   h_muon_iso_B-F_weight = (TH2D*)muon_iso_weight_B-F_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   muon_iso_weight_B_F_input = new TFile ("./scalef/muon/RunBCDEF_SF_ID.root");
+   h_muon_iso_B_F_weight = (TH2D*)muon_iso_weight_B_F_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
 
-   muon_iso_weight_G-H_input = new TFile ("./scalef/muon/RunGH_SF_ID.root");
-   h_muon_iso_G-H_weight = (TH2D*)muon_iso_weight_G-H_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
+   muon_iso_weight_G_H_input = new TFile ("./scalef/muon/RunGH_SF_ID.root");
+   h_muon_iso_G_H_weight = (TH2D*)muon_iso_weight_G_H_input->Get("NUM_TightRelIso_DEN_TightIDandIPCut_eta_pt");
 
    // electron reco weight
    electron_reco_weight_input = new TFile ("./scalef/electron/EGM2D_BtoH_GT20GeV_RecoSF_Legacy2016.root");

@@ -11,9 +11,17 @@
 
      ./make_hist filelist_dir/tight_lepton.txt 1_out_1 2018 data all data singlelepton medium 4 10
 
+*    g++ -o tf `root-config --cflags --glibs` 1_make_fake_photon_tf.C
+
+*    ./tf filelist_dir/tight_for_analysis_lepton.txt 1_out_1 2016 data all fake singlelepton medium 4 10
+
 *    g++ -o tf_ratio `root-config --cflags --glibs` 1_tf_ratio.C
 
-     ./tf_ratio filelist_dir/tight_lepton.txt 1_out_1 2018 data all data singlelepton medium 4 10
+*    ./tf_ratio filelist_dir/tight_lepton.txt 1_out_1 2018 data all data singlelepton medium 4 10
+
+*    g++ -o weight `root-config --cflags --glibs` 3_calculate_fake_photon_weight.C
+
+*    ./weight 2016 2_out_5 1_out_1 3_out_1
 #### step 3 : make plot for signal/control region
 *    g++ -o make_hist `root-config --cflags --glibs` 1_make_histogram.C
 
